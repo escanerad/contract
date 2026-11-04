@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Odoo 20: portal home cards are portal.entry records (replaces the
+     portal_my_home inheritance on #portal_common_category). -->
+<odoo>
+    <record id="portal_contract" model="portal.entry">
+        <field name="name">Contracts</field>
+        <field name="description">Follow your contracts and their recurring invoices</field>
+        <field name="url">/my/contracts</field>
+        <field
+            name="image"
+            type="bytes"
+            file="contract/static/src/img/contract_icon.svg"
+        />
+        <field name="placeholder_count">contract_count</field>
+        <field name="category">client_category</field>
+        <field name="sequence" eval="45" />
+    </record>
+</odoo>

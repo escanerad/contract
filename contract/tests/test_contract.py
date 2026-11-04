@@ -23,6 +23,15 @@ def to_date(date):
 
 
 class TestContractBase(BaseCommon):
+    # Odoo 20: BaseCommon runs as an independent user (base.group_user only)
+    _test_user_groups = (
+        "base.group_user",
+        "base.group_partner_manager",
+        "base.group_system",
+        "account.group_account_manager",
+        "analytic.group_analytic_accounting",
+    )
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -92,7 +101,7 @@ class TestContractBase(BaseCommon):
             {
                 "pricelist_id": cls.partner.property_product_pricelist.id,
                 "product_id": cls.product_1.id,
-                "compute_price": "formula",
+                "compute_price": "discount",
                 "base": "list_price",
             }
         )
@@ -1765,21 +1774,22 @@ class TestContract(TestContractBase):
         )
         with Form(self.contract2) as contract_form:
             contract_form.journal_id = journal_eur
+            # Odoo 20: Json field -> the domain comes back JSON-serialized
             self.assertEqual(
                 contract_form.pricelist_id_domain,
-                [("currency_id", "=", currency_eur.id)],
+                [["currency_id", "=", currency_eur.id]],
             )
             contract_form.pricelist_id = pricelist_eur
             # Switching to a journal with another currency resets the pricelist
             contract_form.journal_id = journal_cad
             self.assertEqual(
                 contract_form.pricelist_id_domain,
-                [("currency_id", "=", currency_cad.id)],
+                [["currency_id", "=", currency_cad.id]],
             )
             self.assertFalse(contract_form.pricelist_id)
             # A journal without currency means no restriction at all
             contract_form.journal_id = journal_no_currency
-            self.assertEqual(contract_form.pricelist_id_domain, [])
+            self.assertFalse(contract_form.pricelist_id_domain)
 
     def test_contract_action_preview(self):
         action = self.contract.action_preview()

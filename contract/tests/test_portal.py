@@ -14,8 +14,12 @@ class TestContractPortal(HttpCase, BaseCommon):
         "odoo.addons.contract.tests.test_portal.TestContractPortal.test_tour.browser"
     )
     def test_tour(self):
-        partner = self.env["res.partner"].create({"name": "partner test contract"})
-        contract = self.env["contract.contract"].create(
+        # Odoo 20: tests run as an independent, non-superuser user; the data
+        # setup is done as superuser, what is tested is the portal access.
+        partner = self.env["res.partner"].sudo().create(
+            {"name": "partner test contract"}
+        )
+        contract = self.env["contract.contract"].sudo().create(
             {"name": "Test Contract", "partner_id": partner.id}
         )
         user_portal = self._create_new_portal_user(

@@ -13,7 +13,8 @@ class ContractMulticompanyCase(TestContractBase):
     def setUpClass(cls):
         super().setUpClass()
         cls.company_obj = cls.env["res.company"]
-        cls.company_1 = cls.env.ref("base.main_company")
+        # Odoo 20: BaseCommon sets up an independent company for the test user
+        cls.company_1 = cls.env.company
         vals = {"name": "Company 2"}
         cls.company_2 = cls.company_obj.create(vals)
         chart_template = cls.env["account.chart.template"]._guess_chart_template(
@@ -22,7 +23,8 @@ class ContractMulticompanyCase(TestContractBase):
         cls.env["account.chart.template"].try_loading(
             chart_template, company=cls.company_2, install_demo=False
         )
-        cls.env.user.company_ids |= cls.company_2
+        # Odoo 20: the independent test user cannot grant itself companies
+        cls.env.user.sudo().company_ids |= cls.company_2
 
         cls.contract_mc = (
             cls.env["contract.contract"]
@@ -71,6 +73,19 @@ class ContractMulticompanyCase(TestContractBase):
         )
 
     def test_cron_recurring_create_invoice_multi_company(self):
+        # Odoo 20: tests no longer run as superuser, so the multi-company
+        # restrictions apply. The cron runs as OdooBot (superuser) across all
+        # companies: reproduce that here.
+        self.env = self.env(
+            su=True,
+            context=dict(
+                self.env.context,
+                allowed_company_ids=(self.company_1 | self.company_2).ids,
+            ),
+        )
+        for attr in ("acct_line", "acct_line_mc", "contract", "contract2"):
+            setattr(self, attr, getattr(self, attr).with_env(self.env))
+        self.contract_mc = self.contract_mc.with_env(self.env)
         self.acct_line.date_start = "2018-01-01"
         self.acct_line.recurring_invoicing_type = "post-paid"
         self.acct_line.date_end = "2018-03-15"
