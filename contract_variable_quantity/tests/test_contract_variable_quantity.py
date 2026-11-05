@@ -12,6 +12,13 @@ from odoo.addons.base.tests.common import BaseCommon
 
 @tagged("post_install", "-at_install")
 class TestContractVariableQuantity(BaseCommon):
+    # Odoo 20: BaseCommon runs as an independent user (base.group_user only)
+    _test_user_groups = (
+        "base.group_user",
+        "base.group_partner_manager",
+        "account.group_account_manager",
+    )
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

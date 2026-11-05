@@ -11,6 +11,12 @@ from odoo.addons.contract_line_successor.tests.test_contract import (
 
 
 class TestContractTermination(TestContractSuccessor):
+    # Odoo 20: tests run as an independent (non-superuser) user
+    _test_user_groups = (
+        *TestContractSuccessor._test_user_groups,
+        "contract_termination.can_terminate_contract",
+    )
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

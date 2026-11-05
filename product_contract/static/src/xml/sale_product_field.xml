@@ -2,7 +2,7 @@
 <templates xml:space="preserve">
 
     <t t-inherit="sale.SaleProductField" t-inherit-mode="extension">
-        <xpath expr="//button[@t-on-click='onEditConfiguration']" position="before">
+        <xpath expr="//button[hasclass('o_configuration_button')]" position="before">
             <t t-if="isConfigurableContract">
                 <button
                     type="button"

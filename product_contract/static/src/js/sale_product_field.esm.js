@@ -1,27 +1,15 @@
 import {patch} from "@web/core/utils/patch";
 import {useService} from "@web/core/utils/hooks";
-import {SaleOrderLineProductField} from "@sale/js/sale_product_field";
+// Odoo 20: the component moved to sale_product_field/ and no longer has
+// extraLines nor _editProductConfiguration (the configuration button calls
+// onEditConfiguration). TODO: show product_contract_description again.
+import {SaleOrderLineProductField} from "@sale/js/sale_product_field/sale_product_field";
 
 patch(SaleOrderLineProductField.prototype, {
     setup() {
         super.setup(...arguments);
         this.lastContractData = false;
         this.action = useService("action");
-    },
-
-    get extraLines() {
-        var res = super.extraLines;
-        if (
-            this.props.record.data.is_contract &&
-            this.props.record.data.product_contract_description
-        ) {
-            for (var val of this.props.record.data.product_contract_description.split(
-                "||"
-            )) {
-                res.push(val);
-            }
-        }
-        return res;
     },
 
     async _onProductUpdate() {
@@ -31,14 +19,14 @@ patch(SaleOrderLineProductField.prototype, {
         }
     },
 
-    _editProductConfiguration() {
+    onEditConfiguration() {
         if (
             this.props.record.data.is_configurable_product &&
             this.props.record.data.is_contract
         ) {
             this.lastContractData = this.contractData;
         }
-        super._editProductConfiguration(...arguments);
+        return super.onEditConfiguration(...arguments);
     },
 
     onEditContractConfiguration() {

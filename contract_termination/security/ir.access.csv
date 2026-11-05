@@ -1,0 +1,4 @@
+id,name,model_id,group_id/id,operation,domain
+contract_contract_terminate_wizard,contract_contract_terminate_wizard,contract.contract.terminate,contract_termination.can_terminate_contract,crud,
+contract_terminate_reason_access_manager,contract.terminate.reason access manager,contract.terminate.reason,account.group_account_manager,crud,
+contract_terminate_reason_access_user,contract.terminate.reason access user,contract.terminate.reason,account.group_account_invoice,crud,
