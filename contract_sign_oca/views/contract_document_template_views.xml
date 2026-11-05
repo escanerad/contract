@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ESCÀNER Serveis TIC - License AGPL-3.0 or later -->
+<odoo>
+    <record id="contract_document_template_form_view" model="ir.ui.view">
+        <field name="model">contract.document.template</field>
+        <field
+            name="inherit_id"
+            ref="contract_document_template.contract_document_template_form_view"
+        />
+        <field name="arch" type="xml">
+            <page name="clauses" position="after">
+                <page name="signature" string="Electronic signature">
+                    <group>
+                        <group string="Signers">
+                            <field name="sign_required" />
+                            <field name="sign_company_user_id" />
+                        </group>
+                        <group string="Boxes on the signature page (% of page)">
+                            <field name="sign_partner_position_x" string="Customer X" />
+                            <field name="sign_partner_position_y" string="Customer Y" />
+                            <field name="sign_company_position_x" string="Company X" />
+                            <field name="sign_company_position_y" string="Company Y" />
+                            <field name="sign_box_width" string="Width" />
+                            <field name="sign_box_height" string="Height" />
+                        </group>
+                    </group>
+                    <field name="sign_message" placeholder="Message for the signers..." />
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>

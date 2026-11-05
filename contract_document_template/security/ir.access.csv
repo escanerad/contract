@@ -1,0 +1,7 @@
+id,name,model_id,group_id/id,operation,domain
+access_contract_document_template_manager,Contract document template manager,contract.document.template,account.group_account_manager,crud,
+access_contract_document_template_user,Contract document template user,contract.document.template,account.group_account_invoice,r,
+access_contract_document_clause_manager,Contract document clause manager,contract.document.clause,account.group_account_manager,crud,
+access_contract_document_clause_user,Contract document clause user,contract.document.clause,account.group_account_invoice,r,
+contract_document_template_multi_company,Contract document template multi-company,contract.document.template,,crud,"[('company_id', 'in', company_ids + [False])]"
+contract_document_clause_multi_company,Contract document clause multi-company,contract.document.clause,,crud,"[('company_id', 'in', company_ids + [False])]"

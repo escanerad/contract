@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ESCÀNER Serveis TIC - License AGPL-3.0 or later -->
+<odoo>
+    <record id="contract_document_clause_form_view" model="ir.ui.view">
+        <field name="model">contract.document.clause</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="text-bg-danger"
+                        invisible="active"
+                    />
+                    <div class="oe_title">
+                        <label for="name" />
+                        <h1><field name="name" /></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="sequence" />
+                            <field name="active" invisible="1" />
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company" />
+                        </group>
+                    </group>
+                    <field name="body" options="{'codeview': true}" />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="contract_document_clause_list_view" model="ir.ui.view">
+        <field name="model">contract.document.clause</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence" widget="handle" />
+                <field name="name" />
+                <field name="company_id" groups="base.group_multi_company" />
+            </list>
+        </field>
+    </record>
+
+    <record id="contract_document_clause_action" model="ir.actions.act_window">
+        <field name="name">Contract Clauses</field>
+        <field name="res_model">contract.document.clause</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        id="contract_document_clause_menu"
+        action="contract_document_clause_action"
+        parent="contract.menu_config_contract"
+        sequence="30"
+    />
+</odoo>

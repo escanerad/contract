@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ESCÀNER Serveis TIC - License AGPL-3.0 or later -->
+<odoo>
+    <record id="contract_contract_form_view" model="ir.ui.view">
+        <field name="model">contract.contract</field>
+        <field
+            name="inherit_id"
+            ref="contract_document_template.contract_contract_form_view"
+        />
+        <field name="arch" type="xml">
+            <button name="action_print_document" position="before">
+                <button
+                    name="action_send_for_signature"
+                    type="object"
+                    string="Send for signature"
+                    class="btn-primary"
+                    invisible="not document_template_id or sign_state in ('sent', 'signed')"
+                />
+                <button
+                    name="action_cancel_signature"
+                    type="object"
+                    string="Cancel signature"
+                    invisible="sign_state != 'sent'"
+                    confirm="The pending signature request will be cancelled. Continue?"
+                />
+            </button>
+            <field name="document_locked" position="after">
+                <field
+                    name="sign_state"
+                    widget="badge"
+                    decoration-info="sign_state == 'sent'"
+                    decoration-success="sign_state == 'signed'"
+                    decoration-muted="sign_state in ('not_sent', 'cancel')"
+                />
+                <field name="sign_required" readonly="sign_state == 'signed'" />
+                <field name="signed_on" invisible="not signed_on" />
+                <field name="signed_attachment_id" invisible="not signed_attachment_id" />
+                <field name="sign_request_id" invisible="1" />
+            </field>
+            <xpath expr="//sheet" position="inside">
+                <div
+                    class="alert alert-info"
+                    role="status"
+                    invisible="not sign_required or sign_state == 'signed'"
+                >
+                    This contract will not be invoiced until it is signed.
+                </div>
+            </xpath>
+            <button name="action_generate_document" position="after">
+                <button
+                    name="action_view_sign_request"
+                    type="object"
+                    class="btn-link"
+                    icon="fa-pencil-square-o"
+                    string="Signature request"
+                    invisible="not sign_request_id"
+                />
+            </button>
+        </field>
+    </record>
+
+    <record id="contract_contract_tree_view" model="ir.ui.view">
+        <field name="model">contract.contract</field>
+        <field name="inherit_id" ref="contract.contract_contract_tree_view" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field
+                    name="sign_state"
+                    widget="badge"
+                    optional="show"
+                    decoration-info="sign_state == 'sent'"
+                    decoration-success="sign_state == 'signed'"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>

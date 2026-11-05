@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ESCÀNER Serveis TIC - License AGPL-3.0 or later -->
+<odoo>
+    <template
+        id="portal_contract_page_sign"
+        name="Contract: sign button"
+        inherit_id="contract.portal_contract_page"
+    >
+        <xpath expr="//div[@id='sidebar_content']/div[hasclass('d-flex')]" position="inside">
+            <t t-set="pending_signer" t-value="contract._get_portal_pending_signer()" />
+            <a
+                t-if="pending_signer"
+                class="btn btn-primary flex-grow-1"
+                role="button"
+                t-att-href="pending_signer.access_url"
+            >
+                <i class="fa fa-pencil me-1" />Sign the contract
+            </a>
+            <span
+                t-if="contract.sign_state == 'signed'"
+                class="badge text-bg-success align-self-start"
+            >
+                <i class="fa fa-check me-1" />Signed
+            </span>
+        </xpath>
+    </template>
+</odoo>

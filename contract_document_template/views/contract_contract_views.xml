@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ESCÀNER Serveis TIC - License AGPL-3.0 or later -->
+<odoo>
+    <record id="contract_contract_form_view" model="ir.ui.view">
+        <field name="model">contract.contract</field>
+        <field name="inherit_id" ref="contract.contract_contract_form_view" />
+        <field name="arch" type="xml">
+            <button name="action_preview" position="after">
+                <button
+                    name="action_print_document"
+                    type="object"
+                    string="Print document"
+                    invisible="not document_template_id"
+                />
+            </button>
+            <page name="recurring_invoice_line" position="after">
+                <page name="document" string="Document">
+                    <group>
+                        <group>
+                            <field
+                                name="document_template_id"
+                                readonly="document_locked"
+                            />
+                            <field name="document_date" readonly="1" />
+                            <field name="document_locked" readonly="1" />
+                        </group>
+                        <group>
+                            <div colspan="2">
+                                <button
+                                    name="action_generate_document"
+                                    type="object"
+                                    class="btn-secondary"
+                                    icon="fa-refresh"
+                                    string="Generate document"
+                                    invisible="document_locked or not document_template_id"
+                                />
+                            </div>
+                        </group>
+                    </group>
+                    <field
+                        name="document_html"
+                        readonly="document_locked"
+                        options="{'codeview': true}"
+                    />
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>

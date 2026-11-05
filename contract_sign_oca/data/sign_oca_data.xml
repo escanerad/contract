@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ESCÀNER Serveis TIC - License AGPL-3.0 or later -->
+<odoo noupdate="1">
+    <record id="sign_role_company" model="sign.oca.role">
+        <field name="name">Company representative</field>
+        <field name="domain">[]</field>
+    </record>
+</odoo>
