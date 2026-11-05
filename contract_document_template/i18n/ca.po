@@ -1,0 +1,343 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* contract_document_template
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 20.0-20261102\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-05 07:32+0000\n"
+"PO-Revision-Date: 2026-11-05 07:32+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: contract_document_template
+#: model:ir.actions.report,print_report_name:contract_document_template.report_contract_document
+msgid "'%s' % (object.name or 'Contract')"
+msgstr "'%s' % (object.name or 'Contracte')"
+
+#. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.report_contract_document_page
+msgid "<em>The contract document has not been generated yet.</em>"
+msgstr "<em>Encara no s'ha generat el document del contracte.</em>"
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__active
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__active
+msgid "Active"
+msgstr "Actiu"
+
+#. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_document_template__include_signature_page
+msgid "Add a last page with the signature boxes of both parties."
+msgstr "Afegeix una última pàgina amb els requadres de signatura de les dues parts."
+
+#. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.report_contract_document_page
+msgid "Amount"
+msgstr "Import"
+
+#. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_clause_form_view
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_template_form_view
+msgid "Archived"
+msgstr "Arxivat"
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__body
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__body
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_template_form_view
+msgid "Body"
+msgstr "Cos"
+
+#. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_document_clause__body
+msgid ""
+"Clause text. The contract is available as 'object', e.g. <t "
+"t-out=\"object.partner_id.name\"/>."
+msgstr "Text de la clàusula. El contracte és disponible com a 'object', p. ex. <t t-out=\"object.partner_id.name\"/>."
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__clause_ids
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_template_form_view
+msgid "Clauses"
+msgstr "Clàusules"
+
+#. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_document_template__clause_ids
+msgid "Clauses appended after the body, numbered, in their sequence order."
+msgstr "Clàusules afegides després del cos, numerades, en l'ordre de seqüència."
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__company_id
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__company_id
+msgid "Company"
+msgstr "Empresa"
+
+#. module: contract_document_template
+#: model:ir.model,name:contract_document_template.model_contract_contract
+msgid "Contract"
+msgstr "Contracte"
+
+#. module: contract_document_template
+#: model:ir.actions.act_window,name:contract_document_template.contract_document_clause_action
+#: model:ir.ui.menu,name:contract_document_template.contract_document_clause_menu
+msgid "Contract Clauses"
+msgstr "Clàusules de contracte"
+
+#. module: contract_document_template
+#: model:ir.model,name:contract_document_template.model_contract_document_clause
+msgid "Contract Document Clause"
+msgstr "Clàusula de document de contracte"
+
+#. module: contract_document_template
+#: model:ir.model,name:contract_document_template.model_contract_document_template
+msgid "Contract Document Template"
+msgstr "Plantilla de document de contracte"
+
+#. module: contract_document_template
+#: model:ir.actions.act_window,name:contract_document_template.contract_document_template_action
+#: model:ir.module.module,shortdesc:base.module_contract_document_template
+#: model:ir.ui.menu,name:contract_document_template.contract_document_template_menu
+msgid "Contract Document Templates"
+msgstr "Plantilles de document de contracte"
+
+#. module: contract_document_template
+#: model:ir.model,name:contract_document_template.model_contract_template
+msgid "Contract Template"
+msgstr "Plantilla de contracte"
+
+#. module: contract_document_template
+#: model:ir.actions.report,name:contract_document_template.report_contract_document
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_contract__document_html
+msgid "Contract document"
+msgstr "Document del contracte"
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__create_uid
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__create_uid
+msgid "Created by"
+msgstr "Creat per"
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__create_date
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__create_date
+msgid "Created on"
+msgstr "Creat el"
+
+#. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.report_contract_document_page
+msgid "Description"
+msgstr "Descripció"
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_contract__display_name
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__display_name
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__display_name
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_template__display_name
+msgid "Display Name"
+msgstr "Nom mostrat"
+
+#. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_contract_form_view
+msgid "Document"
+msgstr "Document"
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_contract__document_locked
+msgid "Document Locked"
+msgstr "Document bloquejat"
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_contract__document_date
+msgid "Document generated on"
+msgstr "Document generat el"
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_contract__document_template_id
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_template__document_template_id
+msgid "Document template"
+msgstr "Plantilla de document"
+
+#. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.report_contract_document_page
+msgid "Economic conditions"
+msgstr "Condicions econòmiques"
+
+#. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_contract_form_view
+msgid "Generate document"
+msgstr "Genera el document"
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_contract__id
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__id
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__id
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_template__id
+msgid "ID"
+msgstr "ID"
+
+#. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.report_contract_document_page
+msgid "In witness whereof, the parties sign this contract."
+msgstr "I, en prova de conformitat, les parts signen aquest contracte."
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__include_line_table
+msgid "Include price table"
+msgstr "Inclou la taula de preus"
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__include_signature_page
+msgid "Include signature page"
+msgstr "Inclou la pàgina de signatures"
+
+#. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_document_template__body
+msgid ""
+"Introduction / parties / object of the contract. The contract is available "
+"as 'object', e.g. <t t-out=\"object.partner_id.name\"/>."
+msgstr "Introducció / parts / objecte del contracte. El contracte és disponible com a 'object', p. ex. <t t-out=\"object.partner_id.name\"/>."
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__lang
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__lang
+msgid "Language"
+msgstr "Idioma"
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__write_uid
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__write_uid
+msgid "Last Updated by"
+msgstr "Última actualització per"
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__write_date
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__write_date
+msgid "Last Updated on"
+msgstr "Última actualització el"
+
+#. module: contract_document_template
+#: model:ir.module.module,summary:base.module_contract_document_template
+msgid ""
+"Legal document templates and reusable clauses for contracts, rendered with "
+"the contract data and frozen once issued"
+msgstr "Plantilles de document legal i clàusules reutilitzables per als contractes, emplenades amb les dades del contracte i congelades un cop emeses"
+
+#. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_contract__document_html
+msgid ""
+"Legal text of this contract. Generated from the document template and "
+"frozen: later changes on the template do not alter it."
+msgstr "Text legal d'aquest contracte. Es genera a partir de la plantilla i queda congelat: els canvis posteriors a la plantilla no l'alteren."
+
+#. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_contract__document_template_id
+#: model:ir.model.fields,help:contract_document_template.field_contract_template__document_template_id
+msgid "Legal text used by the contracts created from this template."
+msgstr "Text legal que fan servir els contractes creats a partir d'aquesta plantilla."
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__name
+msgid "Name"
+msgstr "Nom"
+
+#. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_document_clause__lang
+#: model:ir.model.fields,help:contract_document_template.field_contract_document_template__lang
+msgid ""
+"Optional translation language (ISO code) to select when sending out an "
+"email. If not set, the main partner's language will be used. This should "
+"usually be a placeholder expression that provides the appropriate language, "
+"e.g. {{ object.partner_id.lang }}."
+msgstr ""
+
+#. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_contract_form_view
+msgid "Print document"
+msgstr "Imprimeix el document"
+
+#. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_document_template__include_line_table
+msgid "Print the recurring lines of the contract (economic conditions)."
+msgstr "Imprimeix les línies recurrents del contracte (condicions econòmiques)."
+
+#. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.report_contract_document_page
+msgid "Quantity"
+msgstr "Quantitat"
+
+#. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.report_contract_document_page
+msgid "Recurrence"
+msgstr "Periodicitat"
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__render_model
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__render_model
+msgid "Rendering Model"
+msgstr "Model de renderització"
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__sequence
+msgid "Sequence"
+msgstr "Seqüència"
+
+#. module: contract_document_template
+#. odoo-python
+#: code:addons/contract_document_template/models/contract_contract.py:0
+msgid "Set a document template on contract %(name)s first."
+msgstr "Primer assigneu una plantilla de document al contracte %(name)s."
+
+#. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.report_contract_document_page
+msgid "Signatures"
+msgstr "Signatures"
+
+#. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_contract__document_locked
+msgid ""
+"The document has been issued (e.g. sent for signature) and cannot be "
+"regenerated nor edited anymore."
+msgstr "El document ja s'ha emès (p. ex. enviat a signar) i ja no es pot regenerar ni editar."
+
+#. module: contract_document_template
+#. odoo-python
+#: code:addons/contract_document_template/models/contract_contract.py:0
+msgid ""
+"The document of %(contracts)s has already been issued and cannot be "
+"modified."
+msgstr "El document de %(contracts)s ja s'ha emès i no es pot modificar."
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__name
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__title
+msgid "Title"
+msgstr "Títol"
+
+#. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_document_template__title
+msgid ""
+"Title printed on the document. Placeholders may be used, e.g. {{ object.name"
+" }}. Defaults to the contract name."
+msgstr "Títol imprès al document. Es poden fer servir marcadors, p. ex. {{ object.name }}. Per defecte, el nom del contracte."
+
+#. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.report_contract_document_page
+msgid "Unit price"
+msgstr "Preu unitari"
+
+#. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_template_form_view
+msgid "{{ object.name }}"
+msgstr ""
+
+#. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_template_form_view
+msgid "{{ object.partner_id.lang }}"
+msgstr ""

@@ -1,0 +1,283 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* contract_sign_oca
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 20.0-20261102\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-05 07:32+0000\n"
+"PO-Revision-Date: 2026-11-05 07:32+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: contract_sign_oca
+#: model_terms:ir.ui.view,arch_db:contract_sign_oca.portal_contract_page_sign
+msgid "<i class=\"fa fa-check me-1\"/>Signed"
+msgstr "<i class=\"fa fa-check me-1\"/>Signat"
+
+#. module: contract_sign_oca
+#: model_terms:ir.ui.view,arch_db:contract_sign_oca.portal_contract_page_sign
+msgid "<i class=\"fa fa-pencil me-1\"/>Sign the contract"
+msgstr "<i class=\"fa fa-pencil me-1\"/>Signa el contracte"
+
+#. module: contract_sign_oca
+#: model_terms:ir.ui.view,arch_db:contract_sign_oca.contract_document_template_form_view
+msgid "Boxes on the signature page (% of page)"
+msgstr "Requadres a la pàgina de signatures (% de la pàgina)"
+
+#. module: contract_sign_oca
+#: model_terms:ir.ui.view,arch_db:contract_sign_oca.contract_contract_form_view
+msgid "Cancel signature"
+msgstr "Cancel·la la signatura"
+
+#. module: contract_sign_oca
+#: model_terms:ir.ui.view,arch_db:contract_sign_oca.contract_document_template_form_view
+msgid "Company X"
+msgstr "Empresa X"
+
+#. module: contract_sign_oca
+#: model_terms:ir.ui.view,arch_db:contract_sign_oca.contract_document_template_form_view
+msgid "Company Y"
+msgstr "Empresa Y"
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,field_description:contract_sign_oca.field_contract_document_template__sign_company_user_id
+msgid "Company signer"
+msgstr "Signant de l'empresa"
+
+#. module: contract_sign_oca
+#: model:ir.model,name:contract_sign_oca.model_contract_contract
+msgid "Contract"
+msgstr "Contracte"
+
+#. module: contract_sign_oca
+#. odoo-python
+#: code:addons/contract_sign_oca/models/contract_contract.py:0
+msgid "Contract %(name)s"
+msgstr "Contracte %(name)s"
+
+#. module: contract_sign_oca
+#. odoo-python
+#: code:addons/contract_sign_oca/models/contract_contract.py:0
+msgid "Contract %(name)s has already been sent for signature."
+msgstr "El contracte %(name)s ja s'ha enviat a signar."
+
+#. module: contract_sign_oca
+#: model:ir.model,name:contract_sign_oca.model_contract_document_template
+msgid "Contract Document Template"
+msgstr "Plantilla de document de contracte"
+
+#. module: contract_sign_oca
+#: model:ir.module.module,shortdesc:base.module_contract_sign_oca
+msgid "Contract Online Signature (sign_oca)"
+msgstr "Signatura en línia de contractes (sign_oca)"
+
+#. module: contract_sign_oca
+#. odoo-python
+#: code:addons/contract_sign_oca/models/contract_contract.py:0
+msgid "Contract sent for signature to %(signers)s."
+msgstr "Contracte enviat a signar a %(signers)s."
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,help:contract_sign_oca.field_contract_document_template__sign_required
+msgid "Contracts using this template are not invoiced until signed."
+msgstr "Els contractes amb aquesta plantilla no es facturen fins que estan signats."
+
+#. module: contract_sign_oca
+#: model_terms:ir.ui.view,arch_db:contract_sign_oca.contract_document_template_form_view
+msgid "Customer X"
+msgstr "Client X"
+
+#. module: contract_sign_oca
+#: model_terms:ir.ui.view,arch_db:contract_sign_oca.contract_document_template_form_view
+msgid "Customer Y"
+msgstr "Client Y"
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,field_description:contract_sign_oca.field_contract_contract__display_name
+#: model:ir.model.fields,field_description:contract_sign_oca.field_contract_document_template__display_name
+#: model:ir.model.fields,field_description:contract_sign_oca.field_sign_oca_request__display_name
+msgid "Display Name"
+msgstr "Nom mostrat"
+
+#. module: contract_sign_oca
+#: model_terms:ir.ui.view,arch_db:contract_sign_oca.contract_document_template_form_view
+msgid "Electronic signature"
+msgstr "Signatura electrònica"
+
+#. module: contract_sign_oca
+#: model_terms:ir.ui.view,arch_db:contract_sign_oca.contract_document_template_form_view
+msgid "Height"
+msgstr "Alçada"
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,field_description:contract_sign_oca.field_contract_contract__id
+#: model:ir.model.fields,field_description:contract_sign_oca.field_contract_document_template__id
+#: model:ir.model.fields,field_description:contract_sign_oca.field_sign_oca_request__id
+msgid "ID"
+msgstr "ID"
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,help:contract_sign_oca.field_contract_contract__sign_required
+msgid "If set, the contract is not invoiced until it is signed."
+msgstr "Si està marcat, el contracte no es factura fins que està signat."
+
+#. module: contract_sign_oca
+#: model_terms:ir.ui.view,arch_db:contract_sign_oca.contract_document_template_form_view
+msgid "Message for the signers..."
+msgstr "Missatge per als signants..."
+
+#. module: contract_sign_oca
+#: model:ir.model.fields.selection,name:contract_sign_oca.selection__contract_contract__sign_state__not_sent
+msgid "Not sent"
+msgstr "No enviat"
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,help:contract_sign_oca.field_contract_document_template__sign_company_user_id
+msgid ""
+"Representative who signs on behalf of the company. Leave empty if only the "
+"customer signs."
+msgstr "Representant que signa en nom de l'empresa. Deixeu-ho buit si només signa el client."
+
+#. module: contract_sign_oca
+#: model_terms:ir.ui.view,arch_db:contract_sign_oca.contract_contract_form_view
+msgid "Send for signature"
+msgstr "Envia a signar"
+
+#. module: contract_sign_oca
+#: model:ir.module.module,summary:base.module_contract_sign_oca
+msgid ""
+"Send the contract document for online signature by the customer (and the "
+"company) with sign_oca; invoice only signed contracts"
+msgstr "Envia el document del contracte a signar en línia pel client (i l'empresa) amb sign_oca; factura només els contractes signats"
+
+#. module: contract_sign_oca
+#: model:ir.model.fields.selection,name:contract_sign_oca.selection__contract_contract__sign_state__sent
+msgid "Sent for signature"
+msgstr "Enviat a signar"
+
+#. module: contract_sign_oca
+#. odoo-python
+#: code:addons/contract_sign_oca/models/contract_contract.py:0
+msgid "Set a document template on contract %(name)s first."
+msgstr "Primer assigneu una plantilla de document al contracte %(name)s."
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,field_description:contract_sign_oca.field_contract_document_template__sign_box_height
+msgid "Sign Box Height"
+msgstr "Alçada del requadre de signatura"
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,field_description:contract_sign_oca.field_contract_document_template__sign_box_width
+msgid "Sign Box Width"
+msgstr "Amplada del requadre de signatura"
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,field_description:contract_sign_oca.field_contract_document_template__sign_company_position_x
+msgid "Sign Company Position X"
+msgstr "Posició X signatura empresa"
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,field_description:contract_sign_oca.field_contract_document_template__sign_company_position_y
+msgid "Sign Company Position Y"
+msgstr "Posició Y signatura empresa"
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,field_description:contract_sign_oca.field_contract_document_template__sign_partner_position_x
+msgid "Sign Partner Position X"
+msgstr "Posició X signatura client"
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,field_description:contract_sign_oca.field_contract_document_template__sign_partner_position_y
+msgid "Sign Partner Position Y"
+msgstr "Posició Y signatura client"
+
+#. module: contract_sign_oca
+#: model:ir.model,name:contract_sign_oca.model_sign_oca_request
+msgid "Sign Request"
+msgstr "Petició de signatura"
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,field_description:contract_sign_oca.field_contract_contract__sign_state
+msgid "Signature"
+msgstr "Signatura"
+
+#. module: contract_sign_oca
+#: model:ir.model.fields.selection,name:contract_sign_oca.selection__contract_contract__sign_state__cancel
+msgid "Signature cancelled"
+msgstr "Signatura cancel·lada"
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,field_description:contract_sign_oca.field_contract_contract__sign_request_id
+#: model_terms:ir.ui.view,arch_db:contract_sign_oca.contract_contract_form_view
+msgid "Signature request"
+msgstr "Petició de signatura"
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,field_description:contract_sign_oca.field_contract_document_template__sign_message
+msgid "Signature request message"
+msgstr "Missatge de la petició de signatura"
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,field_description:contract_sign_oca.field_contract_contract__sign_required
+#: model:ir.model.fields,field_description:contract_sign_oca.field_contract_document_template__sign_required
+msgid "Signature required"
+msgstr "Cal signatura"
+
+#. module: contract_sign_oca
+#: model:ir.model.fields.selection,name:contract_sign_oca.selection__contract_contract__sign_state__signed
+msgid "Signed"
+msgstr "Signat"
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,field_description:contract_sign_oca.field_contract_contract__signed_on
+msgid "Signed On"
+msgstr "Signat el"
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,field_description:contract_sign_oca.field_contract_contract__signed_attachment_id
+msgid "Signed document"
+msgstr "Document signat"
+
+#. module: contract_sign_oca
+#: model_terms:ir.ui.view,arch_db:contract_sign_oca.contract_document_template_form_view
+msgid "Signers"
+msgstr "Signants"
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,help:contract_sign_oca.field_contract_document_template__sign_message
+msgid "Text included in the e-mail sent to the signers."
+msgstr "Text inclòs al correu enviat als signants."
+
+#. module: contract_sign_oca
+#. odoo-python
+#: code:addons/contract_sign_oca/models/contract_contract.py:0
+msgid "The contract has been signed by all the parties."
+msgstr "Totes les parts han signat el contracte."
+
+#. module: contract_sign_oca
+#. odoo-python
+#: code:addons/contract_sign_oca/models/contract_contract.py:0
+msgid "The customer of %(name)s has no e-mail address."
+msgstr "El client de %(name)s no té adreça de correu."
+
+#. module: contract_sign_oca
+#: model_terms:ir.ui.view,arch_db:contract_sign_oca.contract_contract_form_view
+msgid "The pending signature request will be cancelled. Continue?"
+msgstr "Es cancel·larà la petició de signatura pendent. Voleu continuar?"
+
+#. module: contract_sign_oca
+#: model_terms:ir.ui.view,arch_db:contract_sign_oca.contract_contract_form_view
+msgid "This contract will not be invoiced until it is signed."
+msgstr "Aquest contracte no es facturarà fins que estigui signat."
+
+#. module: contract_sign_oca
+#: model_terms:ir.ui.view,arch_db:contract_sign_oca.contract_document_template_form_view
+msgid "Width"
+msgstr "Amplada"
