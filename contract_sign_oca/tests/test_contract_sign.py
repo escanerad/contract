@@ -22,6 +22,10 @@ def _fake_pdf(pages=2):
 
 
 FAKE_PDF = _fake_pdf()
+RENDER = (
+    "odoo.addons.contract_sign_oca.models.contract_document."
+    "ContractDocument._render_document_pdf"
+)
 
 
 @tagged("post_install", "-at_install")
@@ -29,15 +33,42 @@ class TestContractSign(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, mail_notify_force_send=False))
         cls.partner = cls.env["res.partner"].create(
             {"name": "Client Test SL", "email": "client@example.com"}
         )
         cls.company_user = cls.env.ref("base.user_admin")
-        cls.doc_template = cls.env["contract.document.template"].create(
+        Template = cls.env["contract.document.template"]
+        cls.doc_template = Template.create(
             {
                 "name": "Support contract",
+                "sequence": 1,
                 "body": '<p>Contract with <t t-out="object.partner_id.name"/>.</p>',
                 "sign_company_user_id": cls.company_user.id,
+            }
+        )
+        cls.dpa_template = Template.create(
+            {
+                "name": "Data processing agreement",
+                "sequence": 2,
+                "document_type": "document",
+                "body": "<p>DPA.</p>",
+            }
+        )
+        cls.addendum_template = Template.create(
+            {
+                "name": "Addendum",
+                "document_type": "addendum",
+                "sign_required": False,
+                "body": "<p>Addendum.</p>",
+            }
+        )
+        cls.contract_template = cls.env["contract.template"].create(
+            {
+                "name": "Support",
+                "document_template_ids": [
+                    (6, 0, (cls.doc_template | cls.dpa_template).ids)
+                ],
             }
         )
         cls.product = cls.env["product.product"].create(
@@ -47,7 +78,7 @@ class TestContractSign(TransactionCase):
             {
                 "name": "SUP-001",
                 "partner_id": cls.partner.id,
-                "document_template_id": cls.doc_template.id,
+                "contract_template_id": cls.contract_template.id,
                 "contract_line_ids": [
                     fields.Command.create(
                         {
@@ -65,84 +96,142 @@ class TestContractSign(TransactionCase):
             }
         )
 
-    def _send(self):
-        with patch(
-            "odoo.addons.contract_sign_oca.models.contract_contract."
-            "ContractContract._render_document_pdf",
-            return_value=FAKE_PDF,
-        ):
-            self.contract.action_send_for_signature()
-        return self.contract.sign_request_id
+    def _send(self, records=None):
+        with patch(RENDER, return_value=FAKE_PDF):
+            (records or self.contract).action_send_for_signature()
 
-    def _sign_all(self, request):
-        for signer in request.signer_ids:
-            signer.signed_on = fields.Datetime.now()
-        request._check_signed()
+    def _sign_all(self, documents):
+        for request in documents.sign_request_id:
+            for signer in request.signer_ids:
+                signer.signed_on = fields.Datetime.now()
+            request._check_signed()
         self.env.cr.precommit.run()
 
-    def test_sign_required_from_template(self):
-        self.assertTrue(self.contract.sign_required)
-        self.assertEqual(self.contract.sign_state, "not_sent")
+    def _docs(self):
+        main = self.contract.document_ids.filtered(lambda d: d.document_type == "main")
+        dpa = self.contract.document_ids.filtered(lambda d: d.document_type == "document")
+        return main, dpa
 
-    def test_send_for_signature(self):
-        request = self._send()
-        self.assertTrue(request)
+    def test_required_before_generating(self):
+        # The required documents block invoicing even before being created
+        self.assertTrue(self.contract.sign_blocked)
+        self.assertEqual(self.contract.sign_state, "not_sent")
+        self.assertEqual(self.contract.sign_summary, "0 of 2")
+
+    def test_send_all_documents_one_mail(self):
+        Message = self.env["mail.message"]
+        before = Message.search([("partner_ids", "in", self.partner.ids)])
+        self._send()
+        main, dpa = self._docs()
+        # One signature request per document
+        self.assertTrue(main.sign_request_id and dpa.sign_request_id)
+        self.assertNotEqual(main.sign_request_id, dpa.sign_request_id)
+        self.assertEqual((main.state, dpa.state), ("issued", "issued"))
         self.assertEqual(self.contract.sign_state, "sent")
-        self.assertTrue(self.contract.document_locked)
-        self.assertTrue(self.contract.document_html)
-        self.assertEqual(request.record_ref, self.contract)
+        self.assertEqual(main.sign_request_id.record_ref, main)
         self.assertEqual(
-            set(request.signer_ids.partner_id.ids),
+            set(main.sign_request_id.signer_ids.partner_id.ids),
             {self.partner.id, self.company_user.partner_id.id},
         )
-        items = list(request.signatory_data.values())
-        self.assertEqual(len(items), 2)
+        self.assertEqual(dpa.sign_request_id.signer_ids.partner_id, self.partner)
+        items = list(main.sign_request_id.signatory_data.values())
         # Signature boxes on the last page of the PDF
         self.assertTrue(all(item["page"] == 2 for item in items))
-        self.assertTrue(all(item["field_type"] == "signature" for item in items))
+        # A single e-mail to the customer, with the links of both documents
+        mails = Message.search([("partner_ids", "in", self.partner.ids)]) - before
+        to_sign = mails.filtered(lambda m: "Documents to sign" in (m.subject or ""))
+        self.assertEqual(len(to_sign), 1)
+        for document in main | dpa:
+            signer = document.sign_request_id.signer_ids.filtered(
+                lambda s: s.partner_id == self.partner
+            )
+            self.assertIn(signer.access_url, to_sign.body)
         with self.assertRaises(UserError):
-            self._send()
+            self._send(main)
 
-    def test_signed(self):
-        request = self._send()
-        self._sign_all(request)
+    def test_signed_one_by_one_and_invoicing(self):
+        Contract = self.env["contract.contract"]
+        domain = Contract._get_contracts_to_invoice_domain("2026-01-31")
+        self.assertNotIn(self.contract, Contract.search(domain))
+        self._send()
+        main, dpa = self._docs()
+        self._sign_all(main)
+        self.assertEqual(main.sign_state, "signed")
+        self.assertTrue(main.signed_on)
+        self.assertEqual(main.signed_attachment_id.raw.content, main.sign_request_id.data.content)
+        # The DPA is required too: still blocked
+        self.assertTrue(self.contract.sign_blocked)
+        self.assertEqual(self.contract.sign_summary, "1 of 2")
+        self.assertNotIn(self.contract, Contract.search(domain))
+        self._sign_all(dpa)
+        self.assertFalse(self.contract.sign_blocked)
         self.assertEqual(self.contract.sign_state, "signed")
-        self.assertTrue(self.contract.signed_on)
-        self.assertTrue(self.contract.signed_attachment_id)
-        # Odoo 20: binary values are BinaryValue objects; compare the bytes
-        self.assertEqual(
-            self.contract.signed_attachment_id.raw.content, request.data.content
+        self.assertIn(self.contract, Contract.search(domain))
+
+    def test_addendum_does_not_block(self):
+        self._send()
+        main, dpa = self._docs()
+        self._sign_all(main | dpa)
+        addendum = self.env["contract.document"].create(
+            {
+                "contract_id": self.contract.id,
+                "template_id": self.addendum_template.id,
+                "parent_id": main.id,
+            }
         )
+        self.assertFalse(addendum.sign_required)
+        self._send(addendum)
+        # Sent but not required: the contract is still invoiced
+        self.assertFalse(self.contract.sign_blocked)
+        self.assertEqual(self.contract.sign_summary, "2 of 3")
+        self._sign_all(addendum)
+        self.assertEqual(self.contract.sign_summary, "3 of 3")
+        # Recorded as a contract modification
+        self.assertIn(addendum.name, " ".join(self.contract.modification_ids.mapped("description")))
+
+    def test_not_required_document(self):
+        self.contract.document_template_ids = self.doc_template
+        self.contract.action_generate_documents()
+        main = self.contract.document_ids
+        self.assertTrue(self.contract.sign_blocked)
+        main.sign_required = False
+        self.assertFalse(self.contract.sign_blocked)
 
     def test_cancel_signature(self):
         self._send()
-        self.contract.action_cancel_signature()
-        self.assertEqual(self.contract.sign_state, "cancel")
-        self.assertFalse(self.contract.document_locked)
-        # It can be sent again
-        self._send()
-        self.assertEqual(self.contract.sign_state, "sent")
+        main, _dpa = self._docs()
+        main.action_cancel_signature()
+        self.assertEqual(main.sign_state, "cancel")
+        self.assertEqual(main.state, "draft")
+        # It can be regenerated and sent again
+        main.action_generate()
+        self._send(main)
+        self.assertEqual(main.sign_state, "sent")
 
-    def test_invoice_only_signed(self):
-        contracts = self.env["contract.contract"]
-        domain = contracts._get_contracts_to_invoice_domain("2026-01-31")
-        self.assertNotIn(self.contract, contracts.search(domain))
-        self.contract.sign_required = False
-        self.assertIn(self.contract, contracts.search(domain))
-        self.contract.sign_required = True
-        request = self._send()
-        self._sign_all(request)
-        self.assertIn(self.contract, contracts.search(domain))
+    def test_document_without_contract(self):
+        nda = self.env["contract.document"].create(
+            {"partner_id": self.partner.id, "template_id": self.dpa_template.id}
+        )
+        self._send(nda)
+        self.assertEqual(nda.sign_state, "sent")
+        self._sign_all(nda)
+        self.assertEqual(nda.sign_state, "signed")
+        self.assertIn(
+            "has been signed", self.partner.message_ids[:1].body or ""
+        )
 
     def test_missing_email(self):
         self.partner.email = False
         with self.assertRaises(UserError):
             self._send()
 
-    def test_portal_pending_signer(self):
-        self.assertFalse(self.contract._get_portal_pending_signer())
-        request = self._send()
-        signer = self.contract._get_portal_pending_signer()
-        self.assertEqual(signer.partner_id, self.partner)
-        self._sign_all(request)
-        self.assertFalse(self.contract._get_portal_pending_signer())
+    def test_portal_documents(self):
+        self.assertFalse(self.contract._get_portal_documents())
+        self._send()
+        main, dpa = self._docs()
+        items = dict(self.contract._get_portal_documents())
+        self.assertEqual(items[main].partner_id, self.partner)
+        self._sign_all(main)
+        items = dict(self.contract._get_portal_documents())
+        self.assertFalse(items[main])
+        self.assertTrue(items[dpa])

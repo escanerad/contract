@@ -8,87 +8,80 @@ from odoo.exceptions import UserError
 class ContractContract(models.Model):
     _inherit = "contract.contract"
 
-    document_template_id = fields.Many2one(
+    document_ids = fields.One2many(
+        "contract.document", "contract_id", string="Documents", copy=False
+    )
+    document_count = fields.Integer(compute="_compute_document_count")
+    # contract.contract inherits contract.template: own relation table
+    document_template_ids = fields.Many2many(
         "contract.document.template",
-        string="Document template",
-        compute="_compute_document_template_id",
+        "contract_contract_document_template_rel",
+        "contract_id",
+        "document_template_id",
+        string="Documents to generate",
+        compute="_compute_document_template_ids",
         store=True,
         readonly=False,
-        tracking=True,
-    )
-    document_html = fields.Html(
-        string="Contract document",
-        copy=False,
-        sanitize="email_outgoing",
-        help="Legal text of this contract. Generated from the document template "
-        "and frozen: later changes on the template do not alter it.",
-    )
-    document_date = fields.Datetime(string="Document generated on", copy=False)
-    document_effective_date = fields.Date(
-        string="Effective from",
-        copy=False,
-        tracking=True,
-        help="Date from which the contract takes effect, when it differs from its "
-        "signature (e.g. it also covers a service already being provided). Templates "
-        "use it as object.document_effective_date; it does not change the signature "
-        "date.",
-    )
-    document_locked = fields.Boolean(
-        copy=False,
-        help="The document has been issued (e.g. sent for signature) and "
-        "cannot be regenerated nor edited anymore.",
+        domain=[("document_type", "!=", "addendum")],
+        help="Documents of this contract, by default those of its contract "
+        "template. Each one is generated and signed separately.",
     )
 
     @api.depends("contract_template_id")
-    def _compute_document_template_id(self):
+    def _compute_document_template_ids(self):
         for contract in self:
-            if contract.contract_template_id.document_template_id:
-                contract.document_template_id = (
-                    contract.contract_template_id.document_template_id
+            if contract.contract_template_id.document_template_ids:
+                contract.document_template_ids = (
+                    contract.contract_template_id.document_template_ids
                 )
 
-    def _check_document_unlocked(self):
-        locked = self.filtered("document_locked")
-        if locked:
-            raise UserError(
-                self.env._(
-                    "The document of %(contracts)s has already been issued and "
-                    "cannot be modified.",
-                    contracts=", ".join(locked.mapped("display_name")),
-                )
-            )
-
-    def action_generate_document(self):
-        self._check_document_unlocked()
+    @api.depends("document_ids")
+    def _compute_document_count(self):
         for contract in self:
-            if not contract.document_template_id:
+            contract.document_count = len(contract.document_ids)
+
+    def _get_missing_document_templates(self):
+        """Documents to generate without a (non cancelled) document on the
+        contract yet."""
+        self.ensure_one()
+        existing = self.document_ids.filtered(lambda d: d.state != "cancel").template_id
+        return self.document_template_ids - existing
+
+    def action_generate_documents(self):
+        """Create the documents of the contract template not created yet and
+        (re)generate the text of the draft ones."""
+        for contract in self:
+            missing = contract._get_missing_document_templates()
+            if not missing and not contract.document_ids:
                 raise UserError(
                     self.env._(
-                        "Set a document template on contract %(name)s first.",
+                        "Contract %(name)s has no documents: add them on the "
+                        "Documents tab or set documents on its contract template.",
                         name=contract.display_name,
                     )
                 )
-            contract.write(
-                {
-                    "document_html": contract.document_template_id._render_contract_document(
-                        contract
-                    ),
-                    "document_date": fields.Datetime.now(),
-                }
+            self.env["contract.document"].create(
+                [
+                    {
+                        "contract_id": contract.id,
+                        "template_id": template.id,
+                        "sequence": template.sequence,
+                    }
+                    for template in missing.sorted(lambda t: (t.sequence, t.id))
+                ]
             )
+            contract.document_ids.filtered(lambda d: d.state == "draft").action_generate()
         return True
 
-    def action_print_document(self):
+    def action_view_documents(self):
         self.ensure_one()
-        if not self.document_html:
-            self.action_generate_document()
-        return self.env.ref(
-            "contract_document_template.report_contract_document"
-        ).report_action(self)
-
-    def write(self, vals):
-        if "document_html" in vals and not self.env.context.get(
-            "contract_document_force_write"
-        ):
-            self._check_document_unlocked()
-        return super().write(vals)
+        action = self.env["ir.actions.act_window"]._for_xml_id(
+            "contract_document_template.contract_document_action"
+        )
+        action["domain"] = [("contract_id", "=", self.id)]
+        action["context"] = {
+            "default_contract_id": self.id,
+            "default_partner_id": self.partner_id.id,
+            "default_company_id": self.company_id.id,
+        }
+        return action

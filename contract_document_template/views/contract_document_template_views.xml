@@ -19,6 +19,7 @@
                     <group>
                         <group>
                             <field name="title" placeholder="{{ object.name }}" />
+                            <field name="document_type" />
                             <field
                                 name="lang"
                                 placeholder="{{ object.partner_id.lang }}"
@@ -63,6 +64,7 @@
         <field name="arch" type="xml">
             <list>
                 <field name="name" />
+                <field name="document_type" />
                 <field name="company_id" groups="base.group_multi_company" />
             </list>
         </field>

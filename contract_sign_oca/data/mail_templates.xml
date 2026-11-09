@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ESCÀNER Serveis TIC - License AGPL-3.0 or later -->
+<odoo>
+    <!-- One e-mail per signer with the links of all its documents -->
+    <template id="mail_documents_to_sign">
+        <div>
+            <p>Hello <t t-out="partner.name" />,</p>
+            <p>Please review and sign the following documents:</p>
+            <t t-foreach="messages" t-as="message">
+                <div
+                    style="margin: 16px 0px; padding: 8px 16px; background-color: #F1F1F1;"
+                    t-out="message"
+                />
+            </t>
+            <table style="width: 100%; border-collapse: collapse;">
+                <t t-foreach="signers" t-as="signer">
+                    <t t-foreach="documents[signer]" t-as="document">
+                        <tr>
+                            <td style="padding: 8px 0px; border-bottom: 1px solid #DDD;">
+                                <strong t-out="document.title or document.name" />
+                                <br />
+                                <span style="color: #666;" t-out="document.name" />
+                            </td>
+                            <td
+                                style="padding: 8px 0px; border-bottom: 1px solid #DDD; text-align: right;"
+                            >
+                                <a
+                                    t-att-href="signer.get_base_url() + signer.access_url"
+                                    style="background-color: #875A7B; padding: 8px 16px; text-decoration: none; color: #fff; border-radius: 5px;"
+                                >Sign</a>
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+            </table>
+            <p style="margin-top: 16px;">Each document is signed separately.</p>
+        </div>
+    </template>
+</odoo>

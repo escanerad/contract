@@ -27,9 +27,9 @@ class ContractDocumentClause(models.Model):
         render_options={"post_process": True},
         translate=True,
         sanitize="email_outgoing",
-        help="Clause text. The contract is available as 'object', e.g. "
+        help="Clause text. The document is available as 'object', e.g. "
         '<t t-out="object.partner_id.name"/>.',
     )
 
     def _compute_render_model(self):
-        self.render_model = "contract.contract"
+        self.render_model = "contract.document"

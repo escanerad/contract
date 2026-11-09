@@ -7,8 +7,14 @@ from odoo import fields, models
 class ContractTemplate(models.Model):
     _inherit = "contract.template"
 
-    document_template_id = fields.Many2one(
+    document_template_ids = fields.Many2many(
         "contract.document.template",
-        string="Document template",
-        help="Legal text used by the contracts created from this template.",
+        "contract_template_document_template_rel",
+        "contract_template_id",
+        "document_template_id",
+        string="Documents",
+        domain=[("document_type", "!=", "addendum")],
+        help="Documents generated for the contracts created from this template "
+        "(e.g. the service contract, the non-disclosure agreement and the data "
+        "processing agreement), each one signed separately.",
     )

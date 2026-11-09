@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ESCÀNER Serveis TIC - License AGPL-3.0 or later -->
+<odoo>
+    <record id="contract_document_form_view" model="ir.ui.view">
+        <field name="model">contract.document</field>
+        <field
+            name="inherit_id"
+            ref="contract_document_template.contract_document_form_view"
+        />
+        <field name="arch" type="xml">
+            <button name="action_print" position="before">
+                <button
+                    name="action_send_for_signature"
+                    type="object"
+                    string="Send for signature"
+                    class="btn-primary"
+                    invisible="state == 'cancel' or sign_state in ('sent', 'signed')"
+                />
+                <button
+                    name="action_cancel_signature"
+                    type="object"
+                    string="Cancel signature"
+                    invisible="sign_state != 'sent'"
+                    confirm="The pending signature request will be cancelled. Continue?"
+                />
+            </button>
+            <div name="button_box" position="inside">
+                <button
+                    name="action_view_sign_request"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-pencil-square-o"
+                    string="Signature request"
+                    invisible="not sign_request_id"
+                />
+            </div>
+            <group name="dates" position="inside">
+                <field
+                    name="sign_state"
+                    widget="badge"
+                    decoration-info="sign_state == 'sent'"
+                    decoration-success="sign_state == 'signed'"
+                    decoration-muted="sign_state in ('not_sent', 'cancel')"
+                />
+                <field name="sign_required" readonly="sign_state == 'signed'" />
+                <field name="signed_on" invisible="not signed_on" />
+                <field name="signed_attachment_id" invisible="not signed_attachment_id" />
+                <field name="sign_request_id" invisible="1" />
+            </group>
+        </field>
+    </record>
+
+    <record id="contract_document_list_view" model="ir.ui.view">
+        <field name="model">contract.document</field>
+        <field
+            name="inherit_id"
+            ref="contract_document_template.contract_document_list_view"
+        />
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field
+                    name="sign_state"
+                    widget="badge"
+                    decoration-info="sign_state == 'sent'"
+                    decoration-success="sign_state == 'signed'"
+                />
+                <field name="sign_required" optional="show" />
+                <field name="signed_on" optional="hide" />
+            </field>
+        </field>
+    </record>
+
+    <record id="contract_document_search_view" model="ir.ui.view">
+        <field name="model">contract.document</field>
+        <field
+            name="inherit_id"
+            ref="contract_document_template.contract_document_search_view"
+        />
+        <field name="arch" type="xml">
+            <filter name="issued" position="after">
+                <filter
+                    name="pending_signature"
+                    string="Pending signature"
+                    domain="[('sign_state', '=', 'sent')]"
+                />
+                <filter name="signed" string="Signed" domain="[('sign_state', '=', 'signed')]" />
+            </filter>
+        </field>
+    </record>
+</odoo>

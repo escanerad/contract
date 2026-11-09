@@ -5,3 +5,6 @@ access_contract_document_clause_manager,Contract document clause manager,contrac
 access_contract_document_clause_user,Contract document clause user,contract.document.clause,account.group_account_invoice,r,
 contract_document_template_multi_company,Contract document template multi-company,contract.document.template,,crud,"[('company_id', 'in', company_ids + [False])]"
 contract_document_clause_multi_company,Contract document clause multi-company,contract.document.clause,,crud,"[('company_id', 'in', company_ids + [False])]"
+access_contract_document_manager,Contract document manager,contract.document,account.group_account_manager,crud,
+access_contract_document_user,Contract document user,contract.document,account.group_account_invoice,cru,
+contract_document_multi_company,Contract document multi-company,contract.document,,crud,"[('company_id', 'in', company_ids)]"

@@ -3,13 +3,13 @@
 <odoo>
     <record id="report_contract_document" model="ir.actions.report">
         <field name="name">Contract document</field>
-        <field name="model">contract.contract</field>
+        <field name="model">contract.document</field>
         <field name="report_type">qweb-pdf</field>
         <field
             name="report_name"
         >contract_document_template.report_contract_document_template</field>
-        <field name="print_report_name">'%s' % (object.name or 'Contract')</field>
-        <field name="binding_model_id" ref="contract.model_contract_contract" />
+        <field name="print_report_name">('%s - %s' % (object.name, object.title or '')).replace('/', '-')</field>
+        <field name="binding_model_id" ref="model_contract_document" />
         <field name="binding_type">report</field>
     </record>
 
@@ -18,10 +18,10 @@
             <div class="page o_contract_document">
                 <div t-if="o.document_html" t-out="o.document_html" />
                 <p t-else="" class="text-muted">
-                    <em>The contract document has not been generated yet.</em>
+                    <em>The document has not been generated yet.</em>
                 </p>
 
-                <t t-if="o.document_template_id.include_line_table">
+                <t t-if="o.template_id.include_line_table and o.contract_line_ids">
                     <h4 class="mt-4">Economic conditions</h4>
                     <table class="table table-sm o_main_table">
                         <thead>
@@ -69,7 +69,7 @@
                     </table>
                 </t>
 
-                <t t-if="o.document_template_id.include_signature_page">
+                <t t-if="o.template_id.include_signature_page">
                     <div style="page-break-before: always;" />
                     <!-- Signature page: always the LAST page of the document.
                          Boxes are at fixed percentages of the page so that an
@@ -77,7 +77,7 @@
                     <div class="o_contract_signatures" style="margin-top: 2cm;">
                         <h4>Signatures</h4>
                         <p>
-                            In witness whereof, the parties sign this contract.
+                            In witness whereof, the parties sign this document.
                         </p>
                         <table style="width: 100%; margin-top: 1cm;">
                             <tr>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ESCÀNER Serveis TIC - License AGPL-3.0 or later -->
+<odoo>
+    <record id="contract_document_form_view" model="ir.ui.view">
+        <field name="model">contract.document</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="action_generate"
+                        type="object"
+                        string="Generate"
+                        icon="fa-refresh"
+                        invisible="state != 'draft'"
+                    />
+                    <button name="action_print" type="object" string="Print" icon="fa-print" />
+                    <button
+                        name="action_issue"
+                        type="object"
+                        string="Mark as issued"
+                        invisible="state != 'draft'"
+                        confirm="The text will be frozen: changes will need an addendum. Continue?"
+                    />
+                    <button
+                        name="action_new_addendum"
+                        type="object"
+                        string="New addendum"
+                        invisible="state == 'cancel' or not contract_id"
+                    />
+                    <button
+                        name="action_cancel"
+                        type="object"
+                        string="Cancel"
+                        invisible="state == 'cancel'"
+                        confirm="The document will be cancelled; it is kept as a record. Continue?"
+                    />
+                    <button
+                        name="action_reset_draft"
+                        type="object"
+                        string="Reset to draft"
+                        invisible="state != 'cancel'"
+                    />
+                    <field name="state" widget="statusbar" statusbar_visible="draft,issued" />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box" />
+                    <widget
+                        name="web_ribbon"
+                        title="Cancelled"
+                        bg_color="text-bg-danger"
+                        invisible="state != 'cancel'"
+                    />
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1" /></h1>
+                        <h3>
+                            <field name="title" placeholder="Title" readonly="state != 'draft'" />
+                        </h3>
+                    </div>
+                    <group>
+                        <group name="main">
+                            <field name="template_id" readonly="state != 'draft'" />
+                            <field name="document_type" readonly="state != 'draft'" />
+                            <field name="contract_id" readonly="state != 'draft'" />
+                            <field name="partner_id" readonly="state != 'draft' or contract_id" />
+                            <field
+                                name="parent_id"
+                                invisible="document_type != 'addendum'"
+                                readonly="state != 'draft'"
+                            />
+                        </group>
+                        <group name="dates">
+                            <field name="document_effective_date" readonly="state != 'draft'" />
+                            <field name="document_date" />
+                            <field name="sequence" />
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                                readonly="state != 'draft'"
+                            />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="document" string="Document">
+                            <field
+                                name="document_html"
+                                readonly="state != 'draft'"
+                                options="{'codeview': true}"
+                            />
+                        </page>
+                        <page name="addenda" string="Addenda" invisible="not addendum_ids">
+                            <field name="addendum_ids" readonly="1">
+                                <list>
+                                    <field name="name" />
+                                    <field name="title" />
+                                    <field name="document_effective_date" />
+                                    <field name="state" widget="badge" />
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter />
+            </form>
+        </field>
+    </record>
+
+    <record id="contract_document_list_view" model="ir.ui.view">
+        <field name="model">contract.document</field>
+        <field name="arch" type="xml">
+            <list decoration-muted="state == 'cancel'">
+                <field name="sequence" widget="handle" />
+                <field name="name" />
+                <field name="title" />
+                <field name="document_type" />
+                <field name="contract_id" optional="show" />
+                <field name="partner_id" optional="show" />
+                <field name="parent_id" optional="hide" />
+                <field name="document_effective_date" optional="hide" />
+                <field name="document_date" optional="hide" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-info="state == 'issued'"
+                    decoration-muted="state == 'cancel'"
+                />
+                <field name="company_id" groups="base.group_multi_company" optional="hide" />
+            </list>
+        </field>
+    </record>
+
+    <record id="contract_document_search_view" model="ir.ui.view">
+        <field name="model">contract.document</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="title" />
+                <field name="partner_id" />
+                <field name="contract_id" />
+                <field name="template_id" />
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]" />
+                <filter name="issued" string="Issued" domain="[('state', '=', 'issued')]" />
+                <filter
+                    name="not_cancelled"
+                    string="Not cancelled"
+                    domain="[('state', '!=', 'cancel')]"
+                />
+                <separator />
+                <filter
+                    name="without_contract"
+                    string="Without contract"
+                    domain="[('contract_id', '=', False)]"
+                />
+                <group>
+                    <filter
+                        name="group_partner"
+                        string="Partner"
+                        context="{'group_by': 'commercial_partner_id'}"
+                    />
+                    <filter
+                        name="group_contract"
+                        string="Contract"
+                        context="{'group_by': 'contract_id'}"
+                    />
+                    <filter name="group_type" string="Type" context="{'group_by': 'document_type'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="contract_document_action" model="ir.actions.act_window">
+        <field name="name">Contract Documents</field>
+        <field name="res_model">contract.document</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_not_cancelled': 1}</field>
+    </record>
+
+    <menuitem
+        id="contract_document_menu"
+        action="contract_document_action"
+        parent="account.menu_finance_receivables"
+        sequence="100"
+    />
+</odoo>

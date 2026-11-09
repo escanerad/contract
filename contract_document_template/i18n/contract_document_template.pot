@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 20.0-20261102\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-09 13:05+0000\n"
-"PO-Revision-Date: 2026-11-09 13:05+0000\n"
+"POT-Creation-Date: 2026-11-09 15:55+0000\n"
+"PO-Revision-Date: 2026-11-09 15:55+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,12 +17,17 @@ msgstr ""
 
 #. module: contract_document_template
 #: model:ir.actions.report,print_report_name:contract_document_template.report_contract_document
-msgid "'%s' % (object.name or 'Contract')"
+msgid "('%s - %s' % (object.name, object.title or '')).replace('/', '-')"
 msgstr ""
 
 #. module: contract_document_template
 #: model_terms:ir.ui.view,arch_db:contract_document_template.report_contract_document_page
-msgid "<em>The contract document has not been generated yet.</em>"
+msgid "<em>The document has not been generated yet.</em>"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__message_needaction
+msgid "Action Needed"
 msgstr ""
 
 #. module: contract_document_template
@@ -34,6 +39,18 @@ msgstr ""
 #. module: contract_document_template
 #: model:ir.model.fields,help:contract_document_template.field_contract_document_template__include_signature_page
 msgid "Add a last page with the signature boxes of both parties."
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__addendum_ids
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_form_view
+msgid "Addenda"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields.selection,name:contract_document_template.selection__contract_document__document_type__addendum
+#: model:ir.model.fields.selection,name:contract_document_template.selection__contract_document_template__document_type__addendum
+msgid "Addendum"
 msgstr ""
 
 #. module: contract_document_template
@@ -60,6 +77,11 @@ msgid "Archived"
 msgstr ""
 
 #. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: contract_document_template
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__body
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__body
 #: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_template_form_view
@@ -67,9 +89,20 @@ msgid "Body"
 msgstr ""
 
 #. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_form_view
+msgid "Cancel"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields.selection,name:contract_document_template.selection__contract_document__state__cancel
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_form_view
+msgid "Cancelled"
+msgstr ""
+
+#. module: contract_document_template
 #: model:ir.model.fields,help:contract_document_template.field_contract_document_clause__body
 msgid ""
-"Clause text. The contract is available as 'object', e.g. <t "
+"Clause text. The document is available as 'object', e.g. <t "
 "t-out=\"object.partner_id.name\"/>."
 msgstr ""
 
@@ -85,20 +118,48 @@ msgid "Clauses appended after the body, numbered, in their sequence order."
 msgstr ""
 
 #. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__commercial_partner_id
+msgid "Commercial Entity"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__company_id
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__company_id
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__company_id
 msgid "Company"
 msgstr ""
 
 #. module: contract_document_template
+#: model:ir.model,name:contract_document_template.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: contract_document_template
 #: model:ir.model,name:contract_document_template.model_contract_contract
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__contract_id
+#: model:ir.model.fields.selection,name:contract_document_template.selection__contract_document__document_type__main
+#: model:ir.model.fields.selection,name:contract_document_template.selection__contract_document_template__document_type__main
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_search_view
 msgid "Contract"
+msgstr ""
+
+#. module: contract_document_template
+#. odoo-python
+#: code:addons/contract_document_template/models/contract_contract.py:0
+msgid ""
+"Contract %(name)s has no documents: add them on the Documents tab or set "
+"documents on its contract template."
 msgstr ""
 
 #. module: contract_document_template
 #: model:ir.actions.act_window,name:contract_document_template.contract_document_clause_action
 #: model:ir.ui.menu,name:contract_document_template.contract_document_clause_menu
 msgid "Contract Clauses"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model,name:contract_document_template.model_contract_document
+msgid "Contract Document"
 msgstr ""
 
 #. module: contract_document_template
@@ -119,32 +180,64 @@ msgid "Contract Document Templates"
 msgstr ""
 
 #. module: contract_document_template
+#: model:ir.actions.act_window,name:contract_document_template.contract_document_action
+#: model:ir.ui.menu,name:contract_document_template.contract_document_menu
+msgid "Contract Documents"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__contract_line_ids
+msgid "Contract Line"
+msgstr ""
+
+#. module: contract_document_template
 #: model:ir.model,name:contract_document_template.model_contract_template
 msgid "Contract Template"
 msgstr ""
 
 #. module: contract_document_template
 #: model:ir.actions.report,name:contract_document_template.report_contract_document
-#: model:ir.model.fields,field_description:contract_document_template.field_contract_contract__document_html
 msgid "Contract document"
 msgstr ""
 
 #. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_res_partner__contract_document_count
+#: model:ir.model.fields,field_description:contract_document_template.field_res_users__contract_document_count
+#: model_terms:ir.ui.view,arch_db:contract_document_template.view_partner_form
+msgid "Contract documents"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_document_template__document_type
+msgid ""
+"Contract: main document of the contract. Separate document: signed on its "
+"own (non-disclosure agreement, data processing agreement...). Addendum: "
+"amends a previous document."
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__create_uid
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__create_uid
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__create_date
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__create_date
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__create_date
 msgid "Created on"
 msgstr ""
 
 #. module: contract_document_template
-#: model:ir.model.fields,help:contract_document_template.field_contract_contract__document_effective_date
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_document__document_effective_date
 msgid ""
-"Date from which the contract takes effect, when it differs from its "
+"Date from which the document takes effect, when it differs from its "
 "signature (e.g. it also covers a service already being provided). Templates "
 "use it as object.document_effective_date; it does not change the signature "
 "date."
@@ -157,31 +250,75 @@ msgstr ""
 
 #. module: contract_document_template
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_contract__display_name
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__display_name
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__display_name
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__display_name
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_template__display_name
+#: model:ir.model.fields,field_description:contract_document_template.field_res_partner__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: contract_document_template
-#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_contract_form_view
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__document_html
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_form_view
 msgid "Document"
 msgstr ""
 
 #. module: contract_document_template
-#: model:ir.model.fields,field_description:contract_document_template.field_contract_contract__document_locked
-msgid "Document Locked"
+#. odoo-python
+#: code:addons/contract_document_template/models/contract_document.py:0
+msgid ""
+"Document %(documents)s has already been issued and cannot be modified: make "
+"an addendum instead."
 msgstr ""
 
 #. module: contract_document_template
-#: model:ir.model.fields,field_description:contract_document_template.field_contract_contract__document_date
-msgid "Document generated on"
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_contract__document_count
+msgid "Document Count"
 msgstr ""
 
 #. module: contract_document_template
-#: model:ir.model.fields,field_description:contract_document_template.field_contract_contract__document_template_id
-#: model:ir.model.fields,field_description:contract_document_template.field_contract_template__document_template_id
-msgid "Document template"
+#: model:ir.model.fields,help:contract_document_template.field_contract_document__parent_id
+msgid "Document amended by this addendum."
+msgstr ""
+
+#. module: contract_document_template
+#. odoo-python
+#: code:addons/contract_document_template/migrations/20.0.2.0.0/post-migrate.py:0
+msgid "Document migrated to %(name)s."
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_contract__document_ids
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_template__document_template_ids
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_contract_form_view
+msgid "Documents"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_template__document_template_ids
+msgid ""
+"Documents generated for the contracts created from this template (e.g. the "
+"service contract, the non-disclosure agreement and the data processing "
+"agreement), each one signed separately."
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_contract__document_template_ids
+msgid ""
+"Documents of this contract, by default those of its contract template. Each "
+"one is generated and signed separately."
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_contract__document_template_ids
+msgid "Documents to generate"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields.selection,name:contract_document_template.selection__contract_document__state__draft
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_search_view
+msgid "Draft"
 msgstr ""
 
 #. module: contract_document_template
@@ -190,26 +327,64 @@ msgid "Economic conditions"
 msgstr ""
 
 #. module: contract_document_template
-#: model:ir.model.fields,field_description:contract_document_template.field_contract_contract__document_effective_date
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__document_effective_date
 msgid "Effective from"
 msgstr ""
 
 #. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_form_view
+msgid "Generate"
+msgstr ""
+
+#. module: contract_document_template
 #: model_terms:ir.ui.view,arch_db:contract_document_template.contract_contract_form_view
-msgid "Generate document"
+msgid "Generate documents"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__document_date
+msgid "Generated on"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__has_message
+msgid "Has Message"
 msgstr ""
 
 #. module: contract_document_template
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_contract__id
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__id
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__id
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__id
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_template__id
+#: model:ir.model.fields,field_description:contract_document_template.field_res_partner__id
 msgid "ID"
 msgstr ""
 
 #. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_document__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_document__message_has_error
+#: model:ir.model.fields,help:contract_document_template.field_contract_document__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: contract_document_template
 #: model_terms:ir.ui.view,arch_db:contract_document_template.report_contract_document_page
-msgid "In witness whereof, the parties sign this contract."
+msgid "In witness whereof, the parties sign this document."
 msgstr ""
 
 #. module: contract_document_template
@@ -225,8 +400,26 @@ msgstr ""
 #. module: contract_document_template
 #: model:ir.model.fields,help:contract_document_template.field_contract_document_template__body
 msgid ""
-"Introduction / parties / object of the contract. The contract is available "
+"Introduction / parties / object of the document. The document is available "
 "as 'object', e.g. <t t-out=\"object.partner_id.name\"/>."
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields.selection,name:contract_document_template.selection__contract_document__state__issued
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_search_view
+msgid "Issued"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_document__state
+msgid ""
+"Issued: sent to the other party (e.g. for signature); its text cannot be "
+"changed anymore. Changes are made with an addendum."
 msgstr ""
 
 #. module: contract_document_template
@@ -236,12 +429,14 @@ msgid "Language"
 msgstr ""
 
 #. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__write_uid
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__write_uid
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__write_date
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__write_date
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__write_date
 msgid "Last Updated on"
@@ -250,21 +445,40 @@ msgstr ""
 #. module: contract_document_template
 #: model:ir.module.module,summary:base.module_contract_document_template
 msgid ""
-"Legal document templates and reusable clauses for contracts, rendered with "
-"the contract data and frozen once issued"
+"Legal documents of the contracts (contract, separate agreements, addenda) "
+"from templates and reusable clauses, frozen once issued"
 msgstr ""
 
 #. module: contract_document_template
-#: model:ir.model.fields,help:contract_document_template.field_contract_contract__document_html
+#: model:ir.model.fields,help:contract_document_template.field_contract_document__document_html
 msgid ""
-"Legal text of this contract. Generated from the document template and "
-"frozen: later changes on the template do not alter it."
+"Legal text, generated from the template and frozen: later changes on the "
+"template do not alter it."
 msgstr ""
 
 #. module: contract_document_template
-#: model:ir.model.fields,help:contract_document_template.field_contract_contract__document_template_id
-#: model:ir.model.fields,help:contract_document_template.field_contract_template__document_template_id
-msgid "Legal text used by the contracts created from this template."
+#: model:ir.model.fields,help:contract_document_template.field_contract_document__contract_line_ids
+msgid "Lines of the contract, for the templates (object.contract_line_ids)."
+msgstr ""
+
+#. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_form_view
+msgid "Mark as issued"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__parent_id
+msgid "Modifies"
 msgstr ""
 
 #. module: contract_document_template
@@ -273,8 +487,46 @@ msgid "Name"
 msgstr ""
 
 #. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_form_view
+msgid "New addendum"
+msgstr ""
+
+#. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_search_view
+msgid "Not cancelled"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_document__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_document__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: contract_document_template
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__numbered
 msgid "Numbered"
+msgstr ""
+
+#. module: contract_document_template
+#. odoo-python
+#: code:addons/contract_document_template/models/contract_document.py:0
+msgid ""
+"Only draft documents can be deleted; cancel the issued ones instead, they "
+"are part of the contract record."
 msgstr ""
 
 #. module: contract_document_template
@@ -289,21 +541,29 @@ msgstr ""
 
 #. module: contract_document_template
 #: model:ir.model.fields,help:contract_document_template.field_contract_document_template__sequence
-msgid "Order of the template when used as an annex."
+msgid "Order of the template in a contract and as an annex."
 msgstr ""
 
 #. module: contract_document_template
 #: model:ir.model.fields,help:contract_document_template.field_contract_document_template__annex_ids
 msgid ""
-"Other document templates appended to this one as annexes (e.g. the data "
-"processing agreement of a service contract). Each annex starts on a new "
-"page, is titled 'Annex N' and numbers its own clauses; its price table, "
-"signature page and own annexes are not printed."
+"Other document templates appended to this one as annexes, in the same PDF "
+"and signed with it. Each annex starts on a new page, is titled 'Annex N' and"
+" numbers its own clauses; its price table, signature page and own annexes "
+"are not printed. To sign it separately, add it to the contract template as "
+"another document instead."
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__partner_id
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_search_view
+msgid "Partner"
 msgstr ""
 
 #. module: contract_document_template
 #: model_terms:ir.ui.view,arch_db:contract_document_template.contract_contract_form_view
-msgid "Print document"
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_form_view
+msgid "Print"
 msgstr ""
 
 #. module: contract_document_template
@@ -329,21 +589,37 @@ msgid "Recurrence"
 msgstr ""
 
 #. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__name
+msgid "Reference"
+msgstr ""
+
+#. module: contract_document_template
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__render_model
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__render_model
 msgid "Rendering Model"
 msgstr ""
 
 #. module: contract_document_template
-#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__sequence
-#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__sequence
-msgid "Sequence"
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_form_view
+msgid "Reset to draft"
 msgstr ""
 
 #. module: contract_document_template
-#. odoo-python
-#: code:addons/contract_document_template/models/contract_contract.py:0
-msgid "Set a document template on contract %(name)s first."
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields.selection,name:contract_document_template.selection__contract_document__document_type__document
+#: model:ir.model.fields.selection,name:contract_document_template.selection__contract_document_template__document_type__document
+msgid "Separate document"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__sequence
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__sequence
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__sequence
+msgid "Sequence"
 msgstr ""
 
 #. module: contract_document_template
@@ -352,23 +628,30 @@ msgid "Signatures"
 msgstr ""
 
 #. module: contract_document_template
-#: model:ir.model.fields,help:contract_document_template.field_contract_contract__document_locked
-msgid ""
-"The document has been issued (e.g. sent for signature) and cannot be "
-"regenerated nor edited anymore."
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__state
+msgid "State"
 msgstr ""
 
 #. module: contract_document_template
-#. odoo-python
-#: code:addons/contract_document_template/models/contract_contract.py:0
-msgid ""
-"The document of %(contracts)s has already been issued and cannot be "
-"modified."
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__template_id
+msgid "Template"
 msgstr ""
 
 #. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_form_view
+msgid "The document will be cancelled; it is kept as a record. Continue?"
+msgstr ""
+
+#. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_form_view
+msgid "The text will be frozen: changes will need an addendum. Continue?"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__title
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__name
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__title
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_form_view
 msgid "Title"
 msgstr ""
 
@@ -376,12 +659,24 @@ msgstr ""
 #: model:ir.model.fields,help:contract_document_template.field_contract_document_template__title
 msgid ""
 "Title printed on the document. Placeholders may be used, e.g. {{ object.name"
-" }}. Defaults to the contract name."
+" }}. Defaults to the template name."
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__document_type
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__document_type
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_search_view
+msgid "Type"
 msgstr ""
 
 #. module: contract_document_template
 #: model_terms:ir.ui.view,arch_db:contract_document_template.report_contract_document_page
 msgid "Unit price"
+msgstr ""
+
+#. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_search_view
+msgid "Without contract"
 msgstr ""
 
 #. module: contract_document_template

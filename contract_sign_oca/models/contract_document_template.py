@@ -8,9 +8,12 @@ class ContractDocumentTemplate(models.Model):
     _inherit = "contract.document.template"
 
     sign_required = fields.Boolean(
-        string="Signature required",
+        string="Signature required to invoice",
         default=True,
-        help="Contracts using this template are not invoiced until signed.",
+        help="The contract is not invoiced until the documents made with this "
+        "template are signed (e.g. the contract, the non-disclosure agreement "
+        "and the data processing agreement; not the addenda). Any document may "
+        "be sent for signature anyway.",
     )
     sign_company_user_id = fields.Many2one(
         "res.users",

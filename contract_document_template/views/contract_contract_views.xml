@@ -5,47 +5,57 @@
         <field name="model">contract.contract</field>
         <field name="inherit_id" ref="contract.contract_contract_form_view" />
         <field name="arch" type="xml">
-            <button name="action_preview" position="after">
+            <div name="button_box" position="inside">
                 <button
-                    name="action_print_document"
+                    name="action_view_documents"
                     type="object"
-                    string="Print document"
-                    invisible="not document_template_id"
-                />
-            </button>
+                    class="oe_stat_button"
+                    icon="fa-file-text-o"
+                    invisible="not document_count"
+                >
+                    <field name="document_count" widget="statinfo" string="Documents" />
+                </button>
+            </div>
             <page name="recurring_invoice_line" position="after">
-                <page name="document" string="Document">
+                <page name="documents" string="Documents">
                     <group>
-                        <group>
-                            <field
-                                name="document_template_id"
-                                readonly="document_locked"
-                            />
-                            <field
-                                name="document_effective_date"
-                                readonly="document_locked"
-                            />
-                            <field name="document_date" readonly="1" />
-                            <field name="document_locked" readonly="1" />
-                        </group>
-                        <group>
-                            <div colspan="2">
-                                <button
-                                    name="action_generate_document"
-                                    type="object"
-                                    class="btn-secondary"
-                                    icon="fa-refresh"
-                                    string="Generate document"
-                                    invisible="document_locked or not document_template_id"
-                                />
-                            </div>
-                        </group>
+                        <field name="document_template_ids" widget="many2many_tags" />
                     </group>
+                    <div class="mb-2">
+                        <button
+                            name="action_generate_documents"
+                            type="object"
+                            class="btn-secondary"
+                            icon="fa-refresh"
+                            string="Generate documents"
+                        />
+                    </div>
                     <field
-                        name="document_html"
-                        readonly="document_locked"
-                        options="{'codeview': true}"
-                    />
+                        name="document_ids"
+                        context="{'default_contract_id': id, 'default_partner_id': partner_id, 'default_company_id': company_id}"
+                    >
+                        <list decoration-muted="state == 'cancel'">
+                            <field name="sequence" widget="handle" />
+                            <field name="name" />
+                            <field name="title" />
+                            <field name="document_type" />
+                            <field name="parent_id" optional="hide" />
+                            <field name="document_effective_date" optional="show" />
+                            <field name="document_date" optional="hide" />
+                            <field
+                                name="state"
+                                widget="badge"
+                                decoration-info="state == 'issued'"
+                                decoration-muted="state == 'cancel'"
+                            />
+                            <button
+                                name="action_print"
+                                type="object"
+                                icon="fa-print"
+                                title="Print"
+                            />
+                        </list>
+                    </field>
                 </page>
             </page>
         </field>

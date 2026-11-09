@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="contract.contract_template_form_view" />
         <field name="arch" type="xml">
             <field name="journal_id" position="after">
-                <field name="document_template_id" />
+                <field name="document_template_ids" widget="many2many_tags" />
             </field>
         </field>
     </record>

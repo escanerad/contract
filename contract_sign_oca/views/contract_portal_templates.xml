@@ -3,25 +3,39 @@
 <odoo>
     <template
         id="portal_contract_page_sign"
-        name="Contract: sign button"
+        name="Contract: documents to sign"
         inherit_id="contract.portal_contract_page"
     >
-        <xpath expr="//div[@id='sidebar_content']/div[hasclass('d-flex')]" position="inside">
-            <t t-set="pending_signer" t-value="contract._get_portal_pending_signer()" />
-            <a
-                t-if="pending_signer"
-                class="btn btn-primary flex-grow-1"
-                role="button"
-                t-att-href="pending_signer.access_url"
+        <xpath
+            expr="//div[@id='sidebar_content']/div[hasclass('d-flex')]"
+            position="after"
+        >
+            <t t-set="portal_documents" t-value="contract._get_portal_documents()" />
+            <ul
+                t-if="portal_documents"
+                class="list-unstyled mt-3 o_contract_portal_documents"
             >
-                <i class="fa fa-pencil me-1" />Sign the contract
-            </a>
-            <span
-                t-if="contract.sign_state == 'signed'"
-                class="badge text-bg-success align-self-start"
-            >
-                <i class="fa fa-check me-1" />Signed
-            </span>
+                <li t-foreach="portal_documents" t-as="item" class="mb-2">
+                    <t t-set="document" t-value="item[0]" />
+                    <t t-set="pending_signer" t-value="item[1]" />
+                    <div t-out="document.title or document.name" class="fw-bold" />
+                    <a
+                        t-if="pending_signer"
+                        class="btn btn-primary btn-sm"
+                        role="button"
+                        t-att-href="pending_signer.access_url"
+                    >
+                        <i class="fa fa-pencil me-1" />Sign
+                    </a>
+                    <span
+                        t-elif="document.sign_state == 'signed'"
+                        class="badge text-bg-success"
+                    >
+                        <i class="fa fa-check me-1" />Signed
+                    </span>
+                    <span t-else="" class="badge text-bg-info">Pending signature</span>
+                </li>
+            </ul>
         </xpath>
     </template>
 </odoo>
