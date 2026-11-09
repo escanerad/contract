@@ -341,3 +341,17 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_template_form_view
 msgid "{{ object.partner_id.lang }}"
 msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_contract__document_effective_date
+msgid "Effective from"
+msgstr "Efectes des de"
+
+#. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_contract__document_effective_date
+msgid ""
+"Date from which the contract takes effect, when it differs from its "
+"signature (e.g. it also covers a service already being provided). Templates "
+"use it as object.document_effective_date; it does not change the signature "
+"date."
+msgstr "Data a partir de la qual el contracte produeix efectes, quan és diferent de la de signatura (p. ex. també cobreix un servei que ja s'està prestant). Les plantilles la fan servir com a object.document_effective_date; no canvia la data de signatura."

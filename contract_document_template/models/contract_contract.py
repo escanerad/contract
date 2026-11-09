@@ -24,6 +24,15 @@ class ContractContract(models.Model):
         "and frozen: later changes on the template do not alter it.",
     )
     document_date = fields.Datetime(string="Document generated on", copy=False)
+    document_effective_date = fields.Date(
+        string="Effective from",
+        copy=False,
+        tracking=True,
+        help="Date from which the contract takes effect, when it differs from its "
+        "signature (e.g. it also covers a service already being provided). Templates "
+        "use it as object.document_effective_date; it does not change the signature "
+        "date.",
+    )
     document_locked = fields.Boolean(
         copy=False,
         help="The document has been issued (e.g. sent for signature) and "

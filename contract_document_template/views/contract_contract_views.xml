@@ -21,6 +21,10 @@
                                 name="document_template_id"
                                 readonly="document_locked"
                             />
+                            <field
+                                name="document_effective_date"
+                                readonly="document_locked"
+                            />
                             <field name="document_date" readonly="1" />
                             <field name="document_locked" readonly="1" />
                         </group>

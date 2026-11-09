@@ -72,6 +72,20 @@ class TestContractDocument(TransactionCase):
         with self.assertRaises(UserError):
             self.contract.document_html = "<p>Tampered</p>"
 
+    def test_effective_date_in_document(self):
+        self.clause_object.body = (
+            '<p>Effects from <t t-if="object.document_effective_date" '
+            't-out="object.document_effective_date.isoformat()"/>'
+            '<t t-else="">signature</t>.</p>'
+        )
+        self.contract.action_generate_document()
+        self.assertIn("Effects from signature.", str(self.contract.document_html))
+        self.contract.document_effective_date = "2024-01-01"
+        self.contract.action_generate_document()
+        self.assertIn("Effects from 2024-01-01.", str(self.contract.document_html))
+        # The generation date stays the real one
+        self.assertGreater(self.contract.document_date.date().isoformat(), "2024-01-01")
+
     def test_generate_without_template(self):
         self.contract.document_template_id = False
         with self.assertRaises(UserError):
