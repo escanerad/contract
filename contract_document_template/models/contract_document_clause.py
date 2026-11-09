@@ -15,6 +15,11 @@ class ContractDocumentClause(models.Model):
 
     name = fields.Char(string="Title", required=True, translate=True)
     sequence = fields.Integer(default=10)
+    numbered = fields.Boolean(
+        default=True,
+        help="Print the clause with its number. Unnumbered clauses (appendices, "
+        "signature notes...) keep their title only and do not count.",
+    )
     active = fields.Boolean(default=True)
     company_id = fields.Many2one("res.company", default=lambda self: self.env.company)
     body = fields.Html(

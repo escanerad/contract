@@ -86,6 +86,34 @@ class TestContractDocument(TransactionCase):
         # The generation date stays the real one
         self.assertGreater(self.contract.document_date.date().isoformat(), "2024-01-01")
 
+    def test_annexes_and_unnumbered_clauses(self):
+        Clause = self.env["contract.document.clause"]
+        annex = self.env["contract.document.template"].create({
+            "name": "DPA",
+            "title": "Data processing agreement",
+            "body": "<p>Processor terms.</p>",
+            "clause_ids": [(6, 0, (
+                Clause.create({"name": "Instructions", "sequence": 1})
+                | Clause.create({"name": "Security", "sequence": 2})
+                | Clause.create({"name": "Appendix I", "sequence": 3, "numbered": False})
+            ).ids)],
+        })
+        self.doc_template.annex_ids = annex
+        self.contract.action_generate_document()
+        html = str(self.contract.document_html)
+        # Main clauses, then the annex on a new page with its own numbering
+        self.assertLess(html.index("2. Confidentiality"), html.index("Annex 1. Data processing agreement"))
+        annex_part = html[html.index("Annex 1."):]
+        self.assertIn("page-break-before", html[: html.index("Annex 1.")][-200:])
+        self.assertIn("1. Instructions", annex_part)
+        self.assertIn("2. Security", annex_part)
+        self.assertIn(">Appendix I<", annex_part)
+        self.assertNotIn("3. Appendix", annex_part)
+        # The annex alone is still a complete document
+        alone = annex._render_contract_document(self.contract)
+        self.assertIn("Data processing agreement", alone)
+        self.assertNotIn("Annex", alone)
+
     def test_generate_without_template(self):
         self.contract.document_template_id = False
         with self.assertRaises(UserError):

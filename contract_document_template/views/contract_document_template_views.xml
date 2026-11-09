@@ -40,6 +40,15 @@
                                 <list>
                                     <field name="sequence" widget="handle" />
                                     <field name="name" />
+                                    <field name="numbered" />
+                                </list>
+                            </field>
+                        </page>
+                        <page name="annexes" string="Annexes">
+                            <field name="annex_ids">
+                                <list>
+                                    <field name="sequence" widget="handle" />
+                                    <field name="name" />
                                 </list>
                             </field>
                         </page>

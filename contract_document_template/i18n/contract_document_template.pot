@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 20.0-20261102\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-05 07:32+0000\n"
-"PO-Revision-Date: 2026-11-05 07:32+0000\n"
+"POT-Creation-Date: 2026-11-09 13:05+0000\n"
+"PO-Revision-Date: 2026-11-09 13:05+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -39,6 +39,18 @@ msgstr ""
 #. module: contract_document_template
 #: model_terms:ir.ui.view,arch_db:contract_document_template.report_contract_document_page
 msgid "Amount"
+msgstr ""
+
+#. module: contract_document_template
+#. odoo-python
+#: code:addons/contract_document_template/models/contract_document_template.py:0
+msgid "Annex %(number)s. %(title)s"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__annex_ids
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_template_form_view
+msgid "Annexes"
 msgstr ""
 
 #. module: contract_document_template
@@ -130,6 +142,15 @@ msgid "Created on"
 msgstr ""
 
 #. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_contract__document_effective_date
+msgid ""
+"Date from which the contract takes effect, when it differs from its "
+"signature (e.g. it also covers a service already being provided). Templates "
+"use it as object.document_effective_date; it does not change the signature "
+"date."
+msgstr ""
+
+#. module: contract_document_template
 #: model_terms:ir.ui.view,arch_db:contract_document_template.report_contract_document_page
 msgid "Description"
 msgstr ""
@@ -166,6 +187,11 @@ msgstr ""
 #. module: contract_document_template
 #: model_terms:ir.ui.view,arch_db:contract_document_template.report_contract_document_page
 msgid "Economic conditions"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_contract__document_effective_date
+msgid "Effective from"
 msgstr ""
 
 #. module: contract_document_template
@@ -247,6 +273,11 @@ msgid "Name"
 msgstr ""
 
 #. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__numbered
+msgid "Numbered"
+msgstr ""
+
+#. module: contract_document_template
 #: model:ir.model.fields,help:contract_document_template.field_contract_document_clause__lang
 #: model:ir.model.fields,help:contract_document_template.field_contract_document_template__lang
 msgid ""
@@ -257,8 +288,29 @@ msgid ""
 msgstr ""
 
 #. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_document_template__sequence
+msgid "Order of the template when used as an annex."
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_document_template__annex_ids
+msgid ""
+"Other document templates appended to this one as annexes (e.g. the data "
+"processing agreement of a service contract). Each annex starts on a new "
+"page, is titled 'Annex N' and numbers its own clauses; its price table, "
+"signature page and own annexes are not printed."
+msgstr ""
+
+#. module: contract_document_template
 #: model_terms:ir.ui.view,arch_db:contract_document_template.contract_contract_form_view
 msgid "Print document"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_document_clause__numbered
+msgid ""
+"Print the clause with its number. Unnumbered clauses (appendices, signature "
+"notes...) keep their title only and do not count."
 msgstr ""
 
 #. module: contract_document_template
@@ -284,6 +336,7 @@ msgstr ""
 
 #. module: contract_document_template
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__sequence
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__sequence
 msgid "Sequence"
 msgstr ""
 
@@ -339,18 +392,4 @@ msgstr ""
 #. module: contract_document_template
 #: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_template_form_view
 msgid "{{ object.partner_id.lang }}"
-msgstr ""
-
-#. module: contract_document_template
-#: model:ir.model.fields,field_description:contract_document_template.field_contract_contract__document_effective_date
-msgid "Effective from"
-msgstr ""
-
-#. module: contract_document_template
-#: model:ir.model.fields,help:contract_document_template.field_contract_contract__document_effective_date
-msgid ""
-"Date from which the contract takes effect, when it differs from its "
-"signature (e.g. it also covers a service already being provided). Templates "
-"use it as object.document_effective_date; it does not change the signature "
-"date."
 msgstr ""
