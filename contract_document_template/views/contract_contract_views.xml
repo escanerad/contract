@@ -10,7 +10,7 @@
                     name="action_view_documents"
                     type="object"
                     class="oe_stat_button"
-                    icon="fa-file-text-o"
+                    icon="description"
                     invisible="not document_count"
                 >
                     <field name="document_count" widget="statinfo" string="Documents" />
@@ -26,7 +26,7 @@
                             name="action_generate_documents"
                             type="object"
                             class="btn-secondary"
-                            icon="fa-refresh"
+                            icon="refresh"
                             string="Generate documents"
                         />
                     </div>
@@ -51,7 +51,7 @@
                             <button
                                 name="action_print"
                                 type="object"
-                                icon="fa-print"
+                                icon="print"
                                 title="Print"
                             />
                         </list>

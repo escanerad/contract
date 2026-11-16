@@ -69,7 +69,7 @@
                             type="object"
                             invisible="sale_order_ids_count == 0"
                             class="oe_stat_button"
-                            icon="fa-pencil-square-o"
+                            icon="edit_square"
                         >
                             <field
                                 name="sale_order_ids_count"
@@ -82,7 +82,7 @@
                             invisible="account_invoice_ids_count == 0"
                             type="object"
                             class="oe_stat_button"
-                            icon="fa-pencil-square-o"
+                            icon="edit_square"
                         >
                             <field
                                 name="account_invoice_ids_count"

@@ -29,7 +29,7 @@
                     name="action_view_sign_request"
                     type="object"
                     class="oe_stat_button"
-                    icon="fa-pencil-square-o"
+                    icon="edit_square"
                     string="Signature request"
                     invisible="not sign_request_id"
                 />

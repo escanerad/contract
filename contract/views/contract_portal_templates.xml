@@ -94,7 +94,7 @@
                                 title="View Details"
                                 t-att-href="'/my/contracts/%s?report_type=pdf' % (contract.id,)"
                             >
-                                <i class="fa fa-print me-1" />View Details
+                                <i class="oi me-1" data-icon="print" />View Details
                             </a>
                         </div>
                     </div>

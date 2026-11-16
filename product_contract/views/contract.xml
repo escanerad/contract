@@ -13,7 +13,7 @@
                     class="oe_stat_button"
                     name="action_view_sales_orders"
                     type="object"
-                    icon="fa-edit"
+                    icon="edit"
                     invisible="sale_order_count == 0"
                 >
                     <div class="o_field_widget o_stat_info">

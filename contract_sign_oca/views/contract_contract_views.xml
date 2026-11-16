@@ -14,7 +14,7 @@
                     type="object"
                     string="Send documents for signature"
                     class="btn-primary ms-2"
-                    icon="fa-pencil"
+                    icon="edit"
                     confirm="The documents not signed nor sent yet will be generated, frozen and sent for signature. Continue?"
                 />
                 <span class="ms-3" invisible="not sign_state">

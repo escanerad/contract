@@ -25,13 +25,13 @@
                         role="button"
                         t-att-href="pending_signer.access_url"
                     >
-                        <i class="fa fa-pencil me-1" />Sign
+                        <i class="oi me-1" data-icon="edit" />Sign
                     </a>
                     <span
                         t-elif="document.sign_state == 'signed'"
                         class="badge text-bg-success"
                     >
-                        <i class="fa fa-check me-1" />Signed
+                        <i class="oi me-1" data-icon="check" />Signed
                     </span>
                     <span t-else="" class="badge text-bg-info">Pending signature</span>
                 </li>

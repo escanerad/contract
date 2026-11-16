@@ -29,7 +29,7 @@
                     invisible="display_type"
                     groups="contract_update_last_date_invoiced.group_contract_line_update_last_date_invoiced"
                     class="btn btn-link p-0"
-                    icon="fa-refresh"
+                    icon="refresh"
                 />
             </xpath>
         </field>

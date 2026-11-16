@@ -30,7 +30,7 @@
                         invisible="not invoice_generation_error"
                     >
                         <i
-                            class="fa fa-exclamation-triangle me-2"
+                            class="oi me-2" data-icon="warning"
                             aria-hidden="true"
                             title="Warning"
                         />
@@ -61,7 +61,7 @@
                         <button
                             name="action_show_invoices"
                             type="object"
-                            icon="fa-list"
+                            icon="view_list"
                             class="oe_stat_button"
                             invisible="generation_type != 'invoice'"
                         >
@@ -463,7 +463,7 @@
                 <button
                     name="action_view_invoice_generation_error"
                     type="object"
-                    icon="fa-exclamation-triangle text-warning"
+                    icon="warning"
                     title="Last scheduled invoicing failed - click for details"
                     invisible="not invoice_generation_error"
                 />

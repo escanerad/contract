@@ -10,10 +10,10 @@
                         name="action_generate"
                         type="object"
                         string="Generate"
-                        icon="fa-refresh"
+                        icon="refresh"
                         invisible="state != 'draft'"
                     />
-                    <button name="action_print" type="object" string="Print" icon="fa-print" />
+                    <button name="action_print" type="object" string="Print" icon="print" />
                     <button
                         name="action_issue"
                         type="object"

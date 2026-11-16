@@ -23,7 +23,7 @@
                 <button
                     name="action_show_contracts"
                     type="object"
-                    icon="fa-book"
+                    icon="book"
                     class="oe_stat_button"
                     insivible="is_contract != True or state not in ['sale', 'done'] or contract_count == 0"
                 >

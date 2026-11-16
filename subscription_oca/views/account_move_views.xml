@@ -10,7 +10,7 @@
                     name="action_open_subscription"
                     type="object"
                     class="oe_stat_button"
-                    icon="fa-calendar"
+                    icon="calendar_today"
                     string="Subscription"
                     invisible="not subscription_id"
                 />
