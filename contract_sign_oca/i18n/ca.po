@@ -78,6 +78,11 @@ msgid "Company Y"
 msgstr "Empresa Y"
 
 #. module: contract_sign_oca
+#: model:sign.oca.role,name:contract_sign_oca.sign_role_company
+msgid "Company representative"
+msgstr "Representant de l'empresa"
+
+#. module: contract_sign_oca
 #: model:ir.model.fields,field_description:contract_sign_oca.field_contract_document_template__sign_company_user_id
 msgid "Company signer"
 msgstr "Signant de l'empresa"

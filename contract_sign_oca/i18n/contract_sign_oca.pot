@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 20.0-20261102\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-09 15:56+0000\n"
-"PO-Revision-Date: 2026-11-09 15:56+0000\n"
+"POT-Creation-Date: 2026-11-16 10:43+0000\n"
+"PO-Revision-Date: 2026-11-16 10:43+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -74,6 +74,11 @@ msgstr ""
 #. module: contract_sign_oca
 #: model_terms:ir.ui.view,arch_db:contract_sign_oca.contract_document_template_form_view
 msgid "Company Y"
+msgstr ""
+
+#. module: contract_sign_oca
+#: model:sign.oca.role,name:contract_sign_oca.sign_role_company
+msgid "Company representative"
 msgstr ""
 
 #. module: contract_sign_oca
