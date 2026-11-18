@@ -2,10 +2,13 @@ import {patch} from "@web/core/utils/patch";
 import {useService} from "@web/core/utils/hooks";
 // Odoo 20: the component moved to sale_product_field/ and no longer has
 // extraLines nor _editProductConfiguration (the configuration button calls
-// onEditConfiguration). TODO: show product_contract_description again.
+// onEditConfiguration). The terms of the contract are in the description of
+// the line (_compute_name); the order lines list shows the product with the
+// label field (SaleLabelTextField), patched as well.
 import {SaleOrderLineProductField} from "@sale/js/sale_product_field/sale_product_field";
+import {SaleLabelTextField} from "@sale/js/sale_label_text/sale_label_text";
 
-patch(SaleOrderLineProductField.prototype, {
+const productContractPatch = {
     setup() {
         super.setup(...arguments);
         this.lastContractData = false;
@@ -102,4 +105,9 @@ patch(SaleOrderLineProductField.prototype, {
             },
         });
     },
-});
+};
+
+// The product field, and the label field that Odoo 20 uses for the product
+// and its description in the order lines list.
+patch(SaleOrderLineProductField.prototype, productContractPatch);
+patch(SaleLabelTextField.prototype, productContractPatch);

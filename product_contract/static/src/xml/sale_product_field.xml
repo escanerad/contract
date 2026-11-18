@@ -3,15 +3,33 @@
 
     <t t-inherit="sale.SaleProductField" t-inherit-mode="extension">
         <xpath expr="//button[hasclass('o_configuration_button')]" position="before">
-            <t t-if="isConfigurableContract">
+            <t t-if="this.isConfigurableContract">
                 <button
                     type="button"
-                    class="btn btn-secondary fa fa-pencil-square-o"
+                    class="oi oi-filled o_contract_configuration_button btn btn-link text-action p-0 small d-print-none"
+                    data-icon="autorenew"
                     tabindex="-1"
                     draggable="false"
                     aria-label="Configure contract"
                     data-tooltip="Configure contract"
-                    t-on-click="onEditContractConfiguration"
+                    t-on-click="() => this.onEditContractConfiguration()"
+                />
+            </t>
+        </xpath>
+    </t>
+
+    <t t-inherit="sale.SaleLabelTextField" t-inherit-mode="extension">
+        <xpath expr="//button[hasclass('o_configuration_button')]" position="before">
+            <t t-if="this.isConfigurableContract and !this.props.record.isInEdition">
+                <button
+                    type="button"
+                    class="oi oi-filled o_contract_configuration_button btn btn-link text-action p-0 small d-print-none"
+                    data-icon="autorenew"
+                    tabindex="-1"
+                    draggable="false"
+                    aria-label="Configure contract"
+                    data-tooltip="Configure contract"
+                    t-on-click="() => this.onEditContractConfiguration()"
                 />
             </t>
         </xpath>

@@ -23,6 +23,9 @@
     "external_dependencies": {"python": ["python-dateutil"]},
     "maintainers": ["sbejaoui"],
     "assets": {
+        "web.assets_tests": [
+            "product_contract/static/tests/tours/*.esm.js",
+        ],
         "web.assets_backend": [
             "product_contract/static/src/js/*",
             (

@@ -25,7 +25,7 @@
                     type="object"
                     icon="book"
                     class="oe_stat_button"
-                    insivible="is_contract != True or state not in ['sale', 'done'] or contract_count == 0"
+                    invisible="is_contract != True or state not in ['sale', 'done'] or contract_count == 0"
                 >
                     <field string="Contracts" name="contract_count" widget="statinfo" />
                 </button>
