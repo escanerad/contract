@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 20.0-20261102\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-09 15:55+0000\n"
-"PO-Revision-Date: 2026-11-09 15:55+0000\n"
+"POT-Creation-Date: 2026-11-19 16:25+0000\n"
+"PO-Revision-Date: 2026-11-19 16:25+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -56,6 +56,12 @@ msgstr ""
 #. module: contract_document_template
 #: model_terms:ir.ui.view,arch_db:contract_document_template.report_contract_document_page
 msgid "Amount"
+msgstr ""
+
+#. module: contract_document_template
+#. odoo-python
+#: code:addons/contract_document_template/models/contract_document.py:0
+msgid "An uploaded document is not generated: upload its file."
 msgstr ""
 
 #. module: contract_document_template
@@ -273,6 +279,12 @@ msgid ""
 msgstr ""
 
 #. module: contract_document_template
+#. odoo-python
+#: code:addons/contract_document_template/models/contract_document.py:0
+msgid "Document %(name)s needs a template."
+msgstr ""
+
+#. module: contract_document_template
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_contract__document_count
 msgid "Document Count"
 msgstr ""
@@ -332,6 +344,16 @@ msgid "Effective from"
 msgstr ""
 
 #. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__uploaded_file
+msgid "File"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__uploaded_filename
+msgid "File name"
+msgstr ""
+
+#. module: contract_document_template
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document__message_follower_ids
 msgid "Followers"
 msgstr ""
@@ -352,8 +374,19 @@ msgid "Generate documents"
 msgstr ""
 
 #. module: contract_document_template
+#: model:ir.model.fields.selection,name:contract_document_template.selection__contract_document__source__template
+msgid "Generated from a template"
+msgstr ""
+
+#. module: contract_document_template
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document__document_date
 msgid "Generated on"
+msgstr ""
+
+#. module: contract_document_template
+#. odoo-python
+#: code:addons/contract_document_template/models/contract_document.py:0
+msgid "Give a title to the uploaded document %(name)s."
 msgstr ""
 
 #. module: contract_document_template
@@ -628,6 +661,11 @@ msgid "Signatures"
 msgstr ""
 
 #. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__source
+msgid "Source"
+msgstr ""
+
+#. module: contract_document_template
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document__state
 msgid "State"
 msgstr ""
@@ -672,6 +710,37 @@ msgstr ""
 #. module: contract_document_template
 #: model_terms:ir.ui.view,arch_db:contract_document_template.report_contract_document_page
 msgid "Unit price"
+msgstr ""
+
+#. module: contract_document_template
+#. odoo-python
+#: code:addons/contract_document_template/models/contract_contract.py:0
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_contract_form_view
+msgid "Upload a document"
+msgstr ""
+
+#. module: contract_document_template
+#. odoo-python
+#: code:addons/contract_document_template/models/contract_document.py:0
+msgid "Upload the file of %(name)s first."
+msgstr ""
+
+#. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_search_view
+msgid "Uploaded"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields.selection,name:contract_document_template.selection__contract_document__source__upload
+msgid "Uploaded file"
+msgstr ""
+
+#. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_document__source
+msgid ""
+"Uploaded file: a document made outside Odoo (e.g. a contract already signed "
+"on paper, a deposit receipt), kept with the contract. It is issued (frozen) "
+"as soon as it is saved with its file."
 msgstr ""
 
 #. module: contract_document_template

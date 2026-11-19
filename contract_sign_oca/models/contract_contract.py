@@ -73,7 +73,9 @@ class ContractContract(models.Model):
         for contract in self:
             contract.action_generate_documents()
             documents = contract.document_ids.filtered(
-                lambda d: d.state != "cancel" and d.sign_state in ("not_sent", "cancel")
+                lambda d: d.state != "cancel"
+                and d.source == "template"
+                and d.sign_state in ("not_sent", "cancel")
             )
             if not documents:
                 raise UserError(

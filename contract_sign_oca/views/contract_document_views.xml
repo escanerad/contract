@@ -14,7 +14,7 @@
                     type="object"
                     string="Send for signature"
                     class="btn-primary"
-                    invisible="state == 'cancel' or sign_state in ('sent', 'signed')"
+                    invisible="state == 'cancel' or sign_state in ('sent', 'signed') or source == 'upload'"
                 />
                 <button
                     name="action_cancel_signature"
@@ -41,6 +41,16 @@
                     decoration-info="sign_state == 'sent'"
                     decoration-success="sign_state == 'signed'"
                     decoration-muted="sign_state in ('not_sent', 'cancel')"
+                />
+                <field
+                    name="signed_outside"
+                    invisible="source != 'upload'"
+                    readonly="state == 'cancel'"
+                />
+                <field
+                    name="signed_outside_on"
+                    invisible="source != 'upload' or not signed_outside"
+                    readonly="state == 'cancel'"
                 />
                 <field name="sign_required" readonly="sign_state == 'signed'" />
                 <field name="signed_on" invisible="not signed_on" />

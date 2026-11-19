@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 from .contract_document_template import DOCUMENT_TYPES
 
@@ -15,6 +15,8 @@ FROZEN_FIELDS = {
     "partner_id",
     "contract_id",
     "parent_id",
+    "source",
+    "uploaded_file",
 }
 NAME_PREFIX = {"document": "D", "addendum": "A"}
 
@@ -38,13 +40,23 @@ class ContractDocument(models.Model):
         compute="_compute_title", store=True, readonly=False, copy=False
     )
     sequence = fields.Integer(default=10)
+    source = fields.Selection(
+        [("template", "Generated from a template"), ("upload", "Uploaded file")],
+        default="template",
+        required=True,
+        tracking=True,
+        help="Uploaded file: a document made outside Odoo (e.g. a contract already "
+        "signed on paper, a deposit receipt), kept with the contract. It is issued "
+        "(frozen) as soon as it is saved with its file.",
+    )
     template_id = fields.Many2one(
         "contract.document.template",
         string="Template",
-        required=True,
         ondelete="restrict",
         tracking=True,
     )
+    uploaded_file = fields.Binary(string="File", attachment=True, copy=False)
+    uploaded_filename = fields.Char(string="File name", copy=False)
     document_type = fields.Selection(
         DOCUMENT_TYPES,
         string="Type",
@@ -119,10 +131,27 @@ class ContractDocument(models.Model):
         "be changed anymore. Changes are made with an addendum.",
     )
 
-    @api.depends("template_id")
+    @api.depends("template_id", "source")
     def _compute_document_type(self):
         for document in self:
-            document.document_type = document.template_id.document_type or "main"
+            document.document_type = document.template_id.document_type or (
+                "document" if document.source == "upload" else "main"
+            )
+
+    @api.constrains("source", "template_id", "title")
+    def _check_source(self):
+        for document in self:
+            if document.source == "template" and not document.template_id:
+                raise ValidationError(
+                    self.env._("Document %(name)s needs a template.", name=document.name)
+                )
+            if document.source == "upload" and not document.title:
+                raise ValidationError(
+                    self.env._(
+                        "Give a title to the uploaded document %(name)s.",
+                        name=document.name,
+                    )
+                )
 
     @api.depends("contract_id")
     def _compute_partner_id(self):
@@ -154,7 +183,7 @@ class ContractDocument(models.Model):
     @api.depends("template_id")
     def _compute_title(self):
         for document in self:
-            if document.state == "draft" or not document.title:
+            if document.template_id and (document.state == "draft" or not document.title):
                 document.title = document.template_id.name
 
     # ------------------------------------------------------------------
@@ -165,6 +194,7 @@ class ContractDocument(models.Model):
         documents = super().create(vals_list)
         for document in documents.filtered(lambda d: d.name == "/"):
             document.name = document._get_next_name()
+        documents._issue_uploaded()
         return documents
 
     def _get_next_name(self):
@@ -192,7 +222,16 @@ class ContractDocument(models.Model):
             "contract_document_force_write"
         ):
             self._check_draft()
-        return super().write(vals)
+        res = super().write(vals)
+        if "uploaded_file" in vals or "source" in vals:
+            self._issue_uploaded()
+        return res
+
+    def _issue_uploaded(self):
+        """An uploaded document is issued (frozen) once it has its file."""
+        self.filtered(
+            lambda d: d.source == "upload" and d.state == "draft" and d.uploaded_file
+        ).action_issue()
 
     @api.ondelete(at_uninstall=False)
     def _unlink_only_draft(self):
@@ -228,6 +267,10 @@ class ContractDocument(models.Model):
     # Actions
     # ------------------------------------------------------------------
     def action_generate(self):
+        if any(document.source == "upload" for document in self):
+            raise UserError(
+                self.env._("An uploaded document is not generated: upload its file.")
+            )
         self._check_draft()
         for document in self:
             template = document.template_id
@@ -243,7 +286,16 @@ class ContractDocument(models.Model):
     def action_issue(self):
         """Freeze the document: it has been sent to the other party."""
         for document in self.filtered(lambda d: d.state == "draft"):
-            if not document.document_html:
+            if document.source == "upload":
+                if not document.uploaded_file:
+                    raise UserError(
+                        self.env._(
+                            "Upload the file of %(name)s first.",
+                            name=document.display_name,
+                        )
+                    )
+                document.document_date = fields.Datetime.now()
+            elif not document.document_html:
                 document.action_generate()
         self.filtered(lambda d: d.state == "draft").state = "issued"
         return True
@@ -263,6 +315,17 @@ class ContractDocument(models.Model):
 
     def action_print(self):
         self.ensure_one()
+        if self.source == "upload":
+            if not self.uploaded_file:
+                raise UserError(
+                    self.env._("Upload the file of %(name)s first.", name=self.display_name)
+                )
+            return {
+                "type": "ir.actions.act_url",
+                "url": f"/web/content/{self._name}/{self.id}/uploaded_file/"
+                f"{self.uploaded_filename or 'document'}?download=true",
+                "target": "self",
+            }
         if not self.document_html and self.state == "draft":
             self.action_generate()
         return self.env.ref(

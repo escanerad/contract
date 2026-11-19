@@ -11,14 +11,14 @@
                         type="object"
                         string="Generate"
                         icon="refresh"
-                        invisible="state != 'draft'"
+                        invisible="state != 'draft' or source == 'upload'"
                     />
                     <button name="action_print" type="object" string="Print" icon="print" />
                     <button
                         name="action_issue"
                         type="object"
                         string="Mark as issued"
-                        invisible="state != 'draft'"
+                        invisible="state != 'draft' or source == 'upload'"
                         confirm="The text will be frozen: changes will need an addendum. Continue?"
                     />
                     <button
@@ -53,12 +53,36 @@
                     <div class="oe_title">
                         <h1><field name="name" readonly="1" /></h1>
                         <h3>
-                            <field name="title" placeholder="Title" readonly="state != 'draft'" />
+                            <field
+                                name="title"
+                                placeholder="Title"
+                                readonly="state != 'draft'"
+                                required="source == 'upload'"
+                            />
                         </h3>
                     </div>
                     <group>
                         <group name="main">
-                            <field name="template_id" readonly="state != 'draft'" />
+                            <field
+                                name="source"
+                                widget="radio"
+                                options="{'horizontal': true}"
+                                readonly="state != 'draft'"
+                            />
+                            <field
+                                name="template_id"
+                                readonly="state != 'draft'"
+                                invisible="source == 'upload'"
+                                required="source == 'template'"
+                            />
+                            <field
+                                name="uploaded_file"
+                                filename="uploaded_filename"
+                                invisible="source != 'upload'"
+                                required="source == 'upload'"
+                                readonly="state != 'draft'"
+                            />
+                            <field name="uploaded_filename" invisible="1" />
                             <field name="document_type" readonly="state != 'draft'" />
                             <field name="contract_id" readonly="state != 'draft'" />
                             <field name="partner_id" readonly="state != 'draft' or contract_id" />
@@ -80,7 +104,7 @@
                         </group>
                     </group>
                     <notebook>
-                        <page name="document" string="Document">
+                        <page name="document" string="Document" invisible="source == 'upload'">
                             <field
                                 name="document_html"
                                 readonly="state != 'draft'"
@@ -112,6 +136,7 @@
                 <field name="name" />
                 <field name="title" />
                 <field name="document_type" />
+                <field name="source" optional="hide" />
                 <field name="contract_id" optional="show" />
                 <field name="partner_id" optional="show" />
                 <field name="parent_id" optional="hide" />
@@ -145,6 +170,11 @@
                     domain="[('state', '!=', 'cancel')]"
                 />
                 <separator />
+                <filter
+                    name="uploaded"
+                    string="Uploaded"
+                    domain="[('source', '=', 'upload')]"
+                />
                 <filter
                     name="without_contract"
                     string="Without contract"

@@ -4,7 +4,7 @@
     "name": "Contract Document Templates",
     "summary": "Legal documents of the contracts (contract, separate agreements, "
     "addenda) from templates and reusable clauses, frozen once issued",
-    "version": "20.0.2.0.0",
+    "version": "20.0.2.1.0",
     "category": "Contract Management",
     "license": "AGPL-3",
     "author": "ESCÀNER Serveis TIC, Odoo Community Association (OCA)",

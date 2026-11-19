@@ -10,11 +10,11 @@ msgstr ""
 "PO-Revision-Date: 2026-11-09 15:55+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: ca\n"
 
 #. module: contract_document_template
 #: model:ir.actions.report,print_report_name:contract_document_template.report_contract_document
@@ -40,7 +40,8 @@ msgstr "Actiu"
 #. module: contract_document_template
 #: model:ir.model.fields,help:contract_document_template.field_contract_document_template__include_signature_page
 msgid "Add a last page with the signature boxes of both parties."
-msgstr "Afegeix una última pàgina amb els requadres de signatura de les dues parts."
+msgstr ""
+"Afegeix una última pàgina amb els requadres de signatura de les dues parts."
 
 #. module: contract_document_template
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document__addendum_ids
@@ -105,7 +106,9 @@ msgstr "Cancel·lat"
 msgid ""
 "Clause text. The document is available as 'object', e.g. <t "
 "t-out=\"object.partner_id.name\"/>."
-msgstr "Text de la clàusula. El document està disponible com a 'object', p. ex. <t t-out=\"object.partner_id.name\"/>."
+msgstr ""
+"Text de la clàusula. El document està disponible com a 'object', p. ex. <t "
+"t-out=\"object.partner_id.name\"/>."
 
 #. module: contract_document_template
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_template__clause_ids
@@ -116,7 +119,8 @@ msgstr "Clàusules"
 #. module: contract_document_template
 #: model:ir.model.fields,help:contract_document_template.field_contract_document_template__clause_ids
 msgid "Clauses appended after the body, numbered, in their sequence order."
-msgstr "Clàusules afegides després del cos, numerades, en l'ordre de seqüència."
+msgstr ""
+"Clàusules afegides després del cos, numerades, en l'ordre de seqüència."
 
 #. module: contract_document_template
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document__commercial_partner_id
@@ -150,7 +154,9 @@ msgstr "Contracte"
 msgid ""
 "Contract %(name)s has no documents: add them on the Documents tab or set "
 "documents on its contract template."
-msgstr "El contracte %(name)s no té documents: afegeix-los a la pestanya Documents o indica els documents a la seva plantilla de contracte."
+msgstr ""
+"El contracte %(name)s no té documents: afegeix-los a la pestanya Documents o"
+" indica els documents a la seva plantilla de contracte."
 
 #. module: contract_document_template
 #: model:ir.actions.act_window,name:contract_document_template.contract_document_clause_action
@@ -214,7 +220,10 @@ msgid ""
 "Contract: main document of the contract. Separate document: signed on its "
 "own (non-disclosure agreement, data processing agreement...). Addendum: "
 "amends a previous document."
-msgstr "Contracte: document principal del contracte. Document independent: se signa per separat (acord de confidencialitat, encàrrec del tractament...). Addenda: modifica un document anterior."
+msgstr ""
+"Contracte: document principal del contracte. Document independent: se signa "
+"per separat (acord de confidencialitat, encàrrec del tractament...). "
+"Addenda: modifica un document anterior."
 
 #. module: contract_document_template
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document__create_uid
@@ -242,7 +251,11 @@ msgid ""
 "signature (e.g. it also covers a service already being provided). Templates "
 "use it as object.document_effective_date; it does not change the signature "
 "date."
-msgstr "Data a partir de la qual el document té efectes, quan no coincideix amb la signatura (p. ex. si també cobreix un servei que ja es prestava). Les plantilles la fan servir com a object.document_effective_date; no canvia la data de signatura."
+msgstr ""
+"Data a partir de la qual el document té efectes, quan no coincideix amb la "
+"signatura (p. ex. si també cobreix un servei que ja es prestava). Les "
+"plantilles la fan servir com a object.document_effective_date; no canvia la "
+"data de signatura."
 
 #. module: contract_document_template
 #: model_terms:ir.ui.view,arch_db:contract_document_template.report_contract_document_page
@@ -271,7 +284,9 @@ msgstr "Document"
 msgid ""
 "Document %(documents)s has already been issued and cannot be modified: make "
 "an addendum instead."
-msgstr "El document %(documents)s ja s'ha emès i no es pot modificar: fes-ne una addenda."
+msgstr ""
+"El document %(documents)s ja s'ha emès i no es pot modificar: fes-ne una "
+"addenda."
 
 #. module: contract_document_template
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_contract__document_count
@@ -302,14 +317,19 @@ msgid ""
 "Documents generated for the contracts created from this template (e.g. the "
 "service contract, the non-disclosure agreement and the data processing "
 "agreement), each one signed separately."
-msgstr "Documents que es generen per als contractes creats amb aquesta plantilla (p. ex. el contracte de servei, l'acord de confidencialitat i l'encàrrec del tractament), cadascun signat per separat."
+msgstr ""
+"Documents que es generen per als contractes creats amb aquesta plantilla (p."
+" ex. el contracte de servei, l'acord de confidencialitat i l'encàrrec del "
+"tractament), cadascun signat per separat."
 
 #. module: contract_document_template
 #: model:ir.model.fields,help:contract_document_template.field_contract_contract__document_template_ids
 msgid ""
 "Documents of this contract, by default those of its contract template. Each "
 "one is generated and signed separately."
-msgstr "Documents d'aquest contracte, per defecte els de la seva plantilla de contracte. Cadascun es genera i se signa per separat."
+msgstr ""
+"Documents d'aquest contracte, per defecte els de la seva plantilla de "
+"contracte. Cadascun es genera i se signa per separat."
 
 #. module: contract_document_template
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_contract__document_template_ids
@@ -403,7 +423,9 @@ msgstr "Inclou la pàgina de signatures"
 msgid ""
 "Introduction / parties / object of the document. The document is available "
 "as 'object', e.g. <t t-out=\"object.partner_id.name\"/>."
-msgstr "Introducció / parts / objecte del document. El document està disponible com a 'object', p. ex. <t t-out=\"object.partner_id.name\"/>."
+msgstr ""
+"Introducció / parts / objecte del document. El document està disponible com "
+"a 'object', p. ex. <t t-out=\"object.partner_id.name\"/>."
 
 #. module: contract_document_template
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document__message_is_follower
@@ -421,7 +443,9 @@ msgstr "Emès"
 msgid ""
 "Issued: sent to the other party (e.g. for signature); its text cannot be "
 "changed anymore. Changes are made with an addendum."
-msgstr "Emès: enviat a l'altra part (p. ex. per signar); el seu text ja no es pot canviar. Els canvis es fan amb una addenda."
+msgstr ""
+"Emès: enviat a l'altra part (p. ex. per signar); el seu text ja no es pot "
+"canviar. Els canvis es fan amb una addenda."
 
 #. module: contract_document_template
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document_clause__lang
@@ -448,19 +472,24 @@ msgstr "Última actualització el"
 msgid ""
 "Legal documents of the contracts (contract, separate agreements, addenda) "
 "from templates and reusable clauses, frozen once issued"
-msgstr "Documents legals dels contractes (contracte, acords independents, addendes) a partir de plantilles i clàusules reutilitzables, congelats un cop emesos"
+msgstr ""
+"Documents legals dels contractes (contracte, acords independents, addendes) "
+"a partir de plantilles i clàusules reutilitzables, congelats un cop emesos"
 
 #. module: contract_document_template
 #: model:ir.model.fields,help:contract_document_template.field_contract_document__document_html
 msgid ""
 "Legal text, generated from the template and frozen: later changes on the "
 "template do not alter it."
-msgstr "Text legal, generat a partir de la plantilla i congelat: els canvis posteriors a la plantilla no l'alteren."
+msgstr ""
+"Text legal, generat a partir de la plantilla i congelat: els canvis "
+"posteriors a la plantilla no l'alteren."
 
 #. module: contract_document_template
 #: model:ir.model.fields,help:contract_document_template.field_contract_document__contract_line_ids
 msgid "Lines of the contract, for the templates (object.contract_line_ids)."
-msgstr "Línies del contracte, per a les plantilles (object.contract_line_ids)."
+msgstr ""
+"Línies del contracte, per a les plantilles (object.contract_line_ids)."
 
 #. module: contract_document_template
 #: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_form_view
@@ -528,7 +557,9 @@ msgstr "Numerada"
 msgid ""
 "Only draft documents can be deleted; cancel the issued ones instead, they "
 "are part of the contract record."
-msgstr "Només es poden suprimir els documents en esborrany; els emesos s'han de cancel·lar, formen part del registre del contracte."
+msgstr ""
+"Només es poden suprimir els documents en esborrany; els emesos s'han de "
+"cancel·lar, formen part del registre del contracte."
 
 #. module: contract_document_template
 #: model:ir.model.fields,help:contract_document_template.field_contract_document_clause__lang
@@ -553,7 +584,13 @@ msgid ""
 " numbers its own clauses; its price table, signature page and own annexes "
 "are not printed. To sign it separately, add it to the contract template as "
 "another document instead."
-msgstr "Altres plantilles de document que s'afegeixen a aquesta com a annexos, al mateix PDF i signats amb ell. Cada annex comença en una pàgina nova, es titula «Annex N» i numera les seves pròpies clàusules; no s'imprimeixen la seva taula de preus, la seva pàgina de signatures ni els seus propis annexos. Per signar-lo per separat, afegeix-lo com un altre document a la plantilla de contracte."
+msgstr ""
+"Altres plantilles de document que s'afegeixen a aquesta com a annexos, al "
+"mateix PDF i signats amb ell. Cada annex comença en una pàgina nova, es "
+"titula «Annex N» i numera les seves pròpies clàusules; no s'imprimeixen la "
+"seva taula de preus, la seva pàgina de signatures ni els seus propis "
+"annexos. Per signar-lo per separat, afegeix-lo com un altre document a la "
+"plantilla de contracte."
 
 #. module: contract_document_template
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document__partner_id
@@ -572,12 +609,15 @@ msgstr "Imprimeix"
 msgid ""
 "Print the clause with its number. Unnumbered clauses (appendices, signature "
 "notes...) keep their title only and do not count."
-msgstr "Imprimeix la clàusula amb el seu número. Les clàusules sense número (apèndixs, notes de signatura...) només mostren el títol i no compten."
+msgstr ""
+"Imprimeix la clàusula amb el seu número. Les clàusules sense número "
+"(apèndixs, notes de signatura...) només mostren el títol i no compten."
 
 #. module: contract_document_template
 #: model:ir.model.fields,help:contract_document_template.field_contract_document_template__include_line_table
 msgid "Print the recurring lines of the contract (economic conditions)."
-msgstr "Imprimeix les línies recurrents del contracte (condicions econòmiques)."
+msgstr ""
+"Imprimeix les línies recurrents del contracte (condicions econòmiques)."
 
 #. module: contract_document_template
 #: model_terms:ir.ui.view,arch_db:contract_document_template.report_contract_document_page
@@ -641,12 +681,14 @@ msgstr "Plantilla"
 #. module: contract_document_template
 #: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_form_view
 msgid "The document will be cancelled; it is kept as a record. Continue?"
-msgstr "El document es cancel·larà; es conserva com a registre. Vols continuar?"
+msgstr ""
+"El document es cancel·larà; es conserva com a registre. Vols continuar?"
 
 #. module: contract_document_template
 #: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_form_view
 msgid "The text will be frozen: changes will need an addendum. Continue?"
-msgstr "El text quedarà congelat: els canvis requeriran una addenda. Vols continuar?"
+msgstr ""
+"El text quedarà congelat: els canvis requeriran una addenda. Vols continuar?"
 
 #. module: contract_document_template
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document__title
@@ -661,7 +703,9 @@ msgstr "Títol"
 msgid ""
 "Title printed on the document. Placeholders may be used, e.g. {{ object.name"
 " }}. Defaults to the template name."
-msgstr "Títol imprès al document. Es poden fer servir variables, p. ex. {{ object.name }}. Per defecte, el nom de la plantilla."
+msgstr ""
+"Títol imprès al document. Es poden fer servir variables, p. ex. {{ "
+"object.name }}. Per defecte, el nom de la plantilla."
 
 #. module: contract_document_template
 #: model:ir.model.fields,field_description:contract_document_template.field_contract_document__document_type
@@ -689,3 +733,75 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_template_form_view
 msgid "{{ object.partner_id.lang }}"
 msgstr ""
+
+#. module: contract_document_template
+#. odoo-python
+#: code:addons/contract_document_template/models/contract_document.py:0
+msgid "An uploaded document is not generated: upload its file."
+msgstr "Un document pujat no es genera: pugeu-ne el fitxer."
+
+#. module: contract_document_template
+#. odoo-python
+#: code:addons/contract_document_template/models/contract_document.py:0
+msgid "Document %(name)s needs a template."
+msgstr "El document %(name)s necessita una plantilla."
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__uploaded_file
+msgid "File"
+msgstr "Fitxer"
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__uploaded_filename
+msgid "File name"
+msgstr "Nom del fitxer"
+
+#. module: contract_document_template
+#: model:ir.model.fields.selection,name:contract_document_template.selection__contract_document__source__template
+msgid "Generated from a template"
+msgstr "Generat amb una plantilla"
+
+#. module: contract_document_template
+#. odoo-python
+#: code:addons/contract_document_template/models/contract_document.py:0
+msgid "Give a title to the uploaded document %(name)s."
+msgstr "Poseu un títol al document pujat %(name)s."
+
+#. module: contract_document_template
+#: model:ir.model.fields,field_description:contract_document_template.field_contract_document__source
+msgid "Source"
+msgstr "Origen"
+
+#. module: contract_document_template
+#. odoo-python
+#: code:addons/contract_document_template/models/contract_contract.py:0
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_contract_form_view
+msgid "Upload a document"
+msgstr "Puja un document"
+
+#. module: contract_document_template
+#. odoo-python
+#: code:addons/contract_document_template/models/contract_document.py:0
+msgid "Upload the file of %(name)s first."
+msgstr "Primer pugeu el fitxer de %(name)s."
+
+#. module: contract_document_template
+#: model_terms:ir.ui.view,arch_db:contract_document_template.contract_document_search_view
+msgid "Uploaded"
+msgstr "Pujats"
+
+#. module: contract_document_template
+#: model:ir.model.fields.selection,name:contract_document_template.selection__contract_document__source__upload
+msgid "Uploaded file"
+msgstr "Fitxer pujat"
+
+#. module: contract_document_template
+#: model:ir.model.fields,help:contract_document_template.field_contract_document__source
+msgid ""
+"Uploaded file: a document made outside Odoo (e.g. a contract already signed "
+"on paper, a deposit receipt), kept with the contract. It is issued (frozen) "
+"as soon as it is saved with its file."
+msgstr ""
+"Fitxer pujat: un document fet fora d'Odoo (p. ex. un contracte ja signat en "
+"paper o un rebut de fiança) que es desa amb el contracte. Queda emès "
+"(congelat) en desar-lo amb el fitxer."

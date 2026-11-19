@@ -33,6 +33,13 @@
                     >
                         <i class="oi me-1" data-icon="check" />Signed
                     </span>
+                    <a
+                        t-if="document.sign_state == 'signed' and document.signed_attachment_id"
+                        class="btn btn-link btn-sm"
+                        t-att-href="'/my/contracts/%s/document/%s%s' % (contract.id, document.id, access_token and ('?access_token=%s' % access_token) or '')"
+                    >
+                        <i class="oi me-1" data-icon="download" />Download
+                    </a>
                     <span t-else="" class="badge text-bg-info">Pending signature</span>
                 </li>
             </ul>

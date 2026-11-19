@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 20.0-20261102\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-16 10:43+0000\n"
-"PO-Revision-Date: 2026-11-16 10:43+0000\n"
+"POT-Creation-Date: 2026-11-19 16:25+0000\n"
+"PO-Revision-Date: 2026-11-19 16:25+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -29,12 +29,17 @@ msgstr ""
 
 #. module: contract_sign_oca
 #: model_terms:ir.ui.view,arch_db:contract_sign_oca.portal_contract_page_sign
-msgid "<i class=\"fa fa-check me-1\"/>Signed"
+msgid "<i class=\"oi me-1\" data-icon=\"check\"/>Signed"
 msgstr ""
 
 #. module: contract_sign_oca
 #: model_terms:ir.ui.view,arch_db:contract_sign_oca.portal_contract_page_sign
-msgid "<i class=\"fa fa-pencil me-1\"/>Sign"
+msgid "<i class=\"oi me-1\" data-icon=\"download\"/>Download"
+msgstr ""
+
+#. module: contract_sign_oca
+#: model_terms:ir.ui.view,arch_db:contract_sign_oca.portal_contract_page_sign
+msgid "<i class=\"oi me-1\" data-icon=\"edit\"/>Sign"
 msgstr ""
 
 #. module: contract_sign_oca
@@ -123,6 +128,11 @@ msgid "Customer Y"
 msgstr ""
 
 #. module: contract_sign_oca
+#: model:ir.model.fields,help:contract_sign_oca.field_contract_document__signed_outside_on
+msgid "Date of the signature outside Odoo."
+msgstr ""
+
+#. module: contract_sign_oca
 #: model:ir.model.fields,field_description:contract_sign_oca.field_contract_contract__display_name
 #: model:ir.model.fields,field_description:contract_sign_oca.field_contract_document__display_name
 #: model:ir.model.fields,field_description:contract_sign_oca.field_contract_document_template__display_name
@@ -134,6 +144,14 @@ msgstr ""
 #. odoo-python
 #: code:addons/contract_sign_oca/models/contract_document.py:0
 msgid "Document %(name)s has already been sent for signature."
+msgstr ""
+
+#. module: contract_sign_oca
+#. odoo-python
+#: code:addons/contract_sign_oca/models/contract_document.py:0
+msgid ""
+"Document %(name)s is an uploaded file: it cannot be sent for signature. If "
+"it is already signed, mark it as signed outside Odoo."
 msgstr ""
 
 #. module: contract_sign_oca
@@ -309,6 +327,11 @@ msgid "Signature cancelled"
 msgstr ""
 
 #. module: contract_sign_oca
+#: model:ir.model.fields,field_description:contract_sign_oca.field_contract_document__signed_outside_on
+msgid "Signature date"
+msgstr ""
+
+#. module: contract_sign_oca
 #: model:ir.model.fields,help:contract_sign_oca.field_contract_contract__sign_state
 msgid "Signature of the documents required to invoice the contract."
 msgstr ""
@@ -349,6 +372,11 @@ msgstr ""
 #. module: contract_sign_oca
 #: model:ir.model.fields,field_description:contract_sign_oca.field_contract_contract__sign_summary
 msgid "Signed documents"
+msgstr ""
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,field_description:contract_sign_oca.field_contract_document__signed_outside
+msgid "Signed outside Odoo"
 msgstr ""
 
 #. module: contract_sign_oca
@@ -398,6 +426,13 @@ msgstr ""
 msgid ""
 "This contract will not be invoiced until the documents required\n"
 "                    to invoice are signed."
+msgstr ""
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,help:contract_sign_oca.field_contract_document__signed_outside
+msgid ""
+"Uploaded document already signed by all the parties (e.g. on paper): it "
+"counts as signed."
 msgstr ""
 
 #. module: contract_sign_oca

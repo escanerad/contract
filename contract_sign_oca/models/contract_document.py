@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from collections import defaultdict
+from datetime import datetime, time
 from io import BytesIO
 
 from pypdf import PdfReader
@@ -41,6 +42,19 @@ class ContractDocument(models.Model):
     signed_attachment_id = fields.Many2one(
         "ir.attachment", string="Signed document", copy=False, readonly=True
     )
+    signed_outside = fields.Boolean(
+        string="Signed outside Odoo",
+        copy=False,
+        tracking=True,
+        help="Uploaded document already signed by all the parties (e.g. on paper): "
+        "it counts as signed.",
+    )
+    signed_outside_on = fields.Date(
+        string="Signature date",
+        copy=False,
+        tracking=True,
+        help="Date of the signature outside Odoo.",
+    )
     sign_required = fields.Boolean(
         string="Required to invoice",
         compute="_compute_sign_required",
@@ -50,17 +64,62 @@ class ContractDocument(models.Model):
         help="The contract is not invoiced until this document is signed.",
     )
 
-    @api.depends("sign_request_id.state")
+    @api.depends("sign_request_id.state", "source", "signed_outside")
     def _compute_sign_state(self):
         for document in self:
+            if document.source == "upload":
+                document.sign_state = "signed" if document.signed_outside else "not_sent"
+                continue
             document.sign_state = REQUEST_STATE_MAP.get(
                 document.sign_request_id.state, "not_sent"
             )
 
-    @api.depends("template_id")
+    @api.depends("template_id", "source")
     def _compute_sign_required(self):
         for document in self:
-            document.sign_required = bool(document.template_id.sign_required)
+            document.sign_required = document.source == "template" and bool(
+                document.template_id.sign_required
+            )
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        documents = super().create(vals_list)
+        documents._sync_signed_outside()
+        return documents
+
+    def write(self, vals):
+        res = super().write(vals)
+        if {"signed_outside", "signed_outside_on", "uploaded_file", "source"} & set(vals):
+            self._sync_signed_outside()
+        return res
+
+    def _sync_signed_outside(self):
+        """Signed outside Odoo: the signature date and the uploaded file as the
+        signed document."""
+        for document in self.filtered(lambda d: d.source == "upload"):
+            if document.signed_outside and document.uploaded_file:
+                attachment = (
+                    self.env["ir.attachment"]
+                    .sudo()
+                    .search(
+                        [
+                            ("res_model", "=", document._name),
+                            ("res_id", "=", document.id),
+                            ("res_field", "=", "uploaded_file"),
+                        ],
+                        limit=1,
+                    )
+                )
+                date = document.signed_outside_on or fields.Date.context_today(document)
+                vals = {
+                    # midday: the same day whatever the time zone
+                    "signed_on": datetime.combine(date, time(12)),
+                    "signed_attachment_id": attachment.id,
+                }
+            else:
+                vals = {"signed_on": False, "signed_attachment_id": False}
+            if any(document[key] != value for key, value in vals.items()):
+                super(ContractDocument, document.sudo()).write(vals)
 
     def _check_can_reset(self):
         if any(document.sign_state == "signed" for document in self):
@@ -143,6 +202,15 @@ class ContractDocument(models.Model):
 
     def _check_can_send(self):
         for document in self:
+            if document.source == "upload":
+                raise UserError(
+                    self.env._(
+                        "Document %(name)s is an uploaded file: it cannot be sent "
+                        "for signature. If it is already signed, mark it as signed "
+                        "outside Odoo.",
+                        name=document.display_name,
+                    )
+                )
             if document.state == "cancel":
                 raise UserError(
                     self.env._(

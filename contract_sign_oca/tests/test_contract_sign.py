@@ -1,6 +1,7 @@
 # Copyright 2026 ESCÀNER Serveis TIC - Albert Pons Domenjó
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+import base64
 from io import BytesIO
 from unittest.mock import patch
 
@@ -235,3 +236,51 @@ class TestContractSign(TransactionCase):
         items = dict(self.contract._get_portal_documents())
         self.assertFalse(items[main])
         self.assertTrue(items[dpa])
+
+    def _upload(self, contract, **vals):
+        return self.env["contract.document"].create(
+            {
+                "contract_id": contract.id,
+                "source": "upload",
+                "title": "Rental contract signed on paper",
+                "document_type": "main",
+                "uploaded_file": base64.b64encode(FAKE_PDF).decode(),
+                "uploaded_filename": "contract.pdf",
+                **vals,
+            }
+        )
+
+    def test_uploaded_signed_outside(self):
+        contract = self.contract.copy({"name": "LL-001", "contract_template_id": False})
+        contract.document_template_ids = False
+        document = self._upload(contract, sign_required=True)
+        self.assertEqual(document.state, "issued")
+        self.assertEqual(document.sign_state, "not_sent")
+        self.assertTrue(contract.sign_blocked, "required and not signed yet")
+        self.assertEqual(contract.sign_summary, "0 of 1")
+        with self.assertRaisesRegex(UserError, "cannot be sent"):
+            document.action_send_for_signature()
+        with self.assertRaisesRegex(UserError, "no documents to send"):
+            contract.action_send_for_signature()
+
+        document.write({"signed_outside": True, "signed_outside_on": "2019-06-01"})
+        self.assertEqual(document.sign_state, "signed")
+        self.assertEqual(document.signed_on.date(), fields.Date.to_date("2019-06-01"))
+        self.assertEqual(document.signed_attachment_id.raw.content, FAKE_PDF, "the uploaded file is the signed one")
+        self.assertFalse(contract.sign_blocked)
+        self.assertEqual((contract.sign_state, contract.sign_summary), ("signed", "1 of 1"))
+        domain = self.env["contract.contract"]._get_contracts_to_invoice_domain("2026-01-31")
+        self.assertIn(contract, self.env["contract.contract"].search(domain))
+        self.assertIn(document, [d for d, _signer in contract._get_portal_documents()])
+        with self.assertRaisesRegex(UserError, "signed document cannot be reset"):
+            document.action_cancel()
+            document.action_reset_draft()
+
+        document.signed_outside = False
+        self.assertFalse(document.signed_on)
+        self.assertFalse(document.signed_attachment_id)
+
+    def test_uploaded_not_required_by_default(self):
+        document = self._upload(self.contract, title="Deposit receipt", document_type="document")
+        self.assertFalse(document.sign_required)
+        self.assertEqual(self.contract.sign_summary, "0 of 2", "the receipt is not counted")

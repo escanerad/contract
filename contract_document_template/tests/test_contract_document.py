@@ -1,7 +1,9 @@
 # Copyright 2026 ESCÀNER Serveis TIC - Albert Pons Domenjó
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo.exceptions import UserError
+import base64
+
+from odoo.exceptions import UserError, ValidationError
 from odoo.tests import TransactionCase, tagged
 
 
@@ -208,3 +210,58 @@ class TestContractDocument(TransactionCase):
         self.assertIn("Client Test SL", html)
         self.assertIn("o_contract_sign_box_partner", html)
         self.assertIn("NDA with Client Test SL", html)
+
+    def _upload(self, **vals):
+        return self.env["contract.document"].create(
+            {
+                "contract_id": self.contract.id,
+                "source": "upload",
+                "title": "Deposit receipt",
+                "uploaded_file": base64.b64encode(b"%PDF-1.4 paper").decode(),
+                "uploaded_filename": "receipt.pdf",
+                **vals,
+            }
+        )
+
+    def test_uploaded_document(self):
+        document = self._upload()
+        self.assertEqual(document.document_type, "document")
+        self.assertEqual(document.name, "SUP-001/D1")
+        self.assertEqual(document.state, "issued", "issued once saved with its file")
+        self.assertTrue(document.document_date)
+        self.assertFalse(document.template_id)
+        action = document.action_print()
+        self.assertEqual(action["type"], "ir.actions.act_url")
+        self.assertIn(f"/web/content/contract.document/{document.id}/uploaded_file/receipt.pdf", action["url"])
+        with self.assertRaisesRegex(UserError, "already been issued"):
+            document.uploaded_file = base64.b64encode(b"other").decode()
+        with self.assertRaisesRegex(UserError, "not generated"):
+            document.action_generate()
+        # The contract signed on paper, as the main document
+        main = self._upload(document_type="main", title="Rental contract")
+        self.assertEqual(main.name, "SUP-001")
+        # Generating the template documents leaves the uploads alone
+        self.contract.action_generate_documents()
+        self.assertEqual(len(self.contract.document_ids), 4)
+
+    def test_uploaded_document_draft_until_file(self):
+        document = self._upload(uploaded_file=False)
+        self.assertEqual(document.state, "draft")
+        with self.assertRaisesRegex(UserError, "Upload the file"):
+            document.action_issue()
+        self.contract.action_generate_documents()  # the draft upload is not generated
+        document.uploaded_file = base64.b64encode(b"%PDF-1.4 paper").decode()
+        self.assertEqual(document.state, "issued")
+
+    def test_constraints(self):
+        with self.assertRaisesRegex(ValidationError, "needs a template"):
+            self.env["contract.document"].create({"contract_id": self.contract.id})
+        with self.assertRaisesRegex(ValidationError, "Give a title"):
+            self._upload(title=False)
+
+    def test_upload_action(self):
+        action = self.contract.action_upload_document()
+        document = self.env["contract.document"].with_context(**action["context"]).create(
+            {"title": "Signed contract", "uploaded_file": base64.b64encode(b"x").decode()}
+        )
+        self.assertEqual((document.source, document.contract_id), ("upload", self.contract))

@@ -29,6 +29,13 @@
                             icon="refresh"
                             string="Generate documents"
                         />
+                        <button
+                            name="action_upload_document"
+                            type="object"
+                            class="btn-secondary ms-2"
+                            icon="upload"
+                            string="Upload a document"
+                        />
                     </div>
                     <field
                         name="document_ids"
@@ -39,6 +46,7 @@
                             <field name="name" />
                             <field name="title" />
                             <field name="document_type" />
+                            <field name="source" optional="hide" />
                             <field name="parent_id" optional="hide" />
                             <field name="document_effective_date" optional="show" />
                             <field name="document_date" optional="hide" />

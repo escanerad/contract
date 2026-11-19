@@ -18,3 +18,8 @@ with its own signature**:
   all its required documents (also the ones not generated yet) are signed.
   The contract shows the overall state ("1 of 3").
 - The portal contract page lists the documents with a *Sign* button.
+- **Uploaded documents** (e.g. a contract already signed on paper, a
+  deposit receipt) are not sent through `sign_oca`: tick *Signed outside
+  Odoo* and give the signature date, and they count as signed (also to
+  unblock the invoicing); the uploaded file is the signed document. The
+  portal offers the download of the signed documents.

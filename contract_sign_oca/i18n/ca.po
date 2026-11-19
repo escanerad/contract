@@ -10,11 +10,11 @@ msgstr ""
 "PO-Revision-Date: 2026-11-09 15:56+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"Language: ca\n"
 
 #. module: contract_sign_oca
 #. odoo-python
@@ -29,21 +29,13 @@ msgid "%(signed)s of %(total)s"
 msgstr "%(signed)s de %(total)s"
 
 #. module: contract_sign_oca
-#: model_terms:ir.ui.view,arch_db:contract_sign_oca.portal_contract_page_sign
-msgid "<i class=\"fa fa-check me-1\"/>Signed"
-msgstr "<i class=\"fa fa-check me-1\"/>Signat"
-
-#. module: contract_sign_oca
-#: model_terms:ir.ui.view,arch_db:contract_sign_oca.portal_contract_page_sign
-msgid "<i class=\"fa fa-pencil me-1\"/>Sign"
-msgstr "<i class=\"fa fa-pencil me-1\"/>Signa"
-
-#. module: contract_sign_oca
 #: model:ir.model.fields,help:contract_sign_oca.field_contract_contract__sign_blocked
 msgid ""
 "A document required to invoice the contract is not signed yet: the contract "
 "is not invoiced."
-msgstr "Encara no s'ha signat un document necessari per facturar el contracte: el contracte no es factura."
+msgstr ""
+"Encara no s'ha signat un document necessari per facturar el contracte: el "
+"contracte no es factura."
 
 #. module: contract_sign_oca
 #. odoo-python
@@ -222,7 +214,9 @@ msgstr "Si us plau, reviseu i signeu els documents següents:"
 msgid ""
 "Representative who signs on behalf of the company. Leave empty if only the "
 "customer signs."
-msgstr "Representant que signa en nom de l'empresa. Deixeu-ho buit si només signa el client."
+msgstr ""
+"Representant que signa en nom de l'empresa. Deixeu-ho buit si només signa el"
+" client."
 
 #. module: contract_sign_oca
 #: model:ir.model.fields,field_description:contract_sign_oca.field_contract_document__sign_required
@@ -240,7 +234,10 @@ msgid ""
 "Send each contract document (contract, separate agreements, addenda) for "
 "online signature with sign_oca; invoice only when the required documents are"
 " signed"
-msgstr "Envia cada document del contracte (contracte, acords independents, addendes) a signar en línia amb sign_oca; factura només quan els documents necessaris estan signats"
+msgstr ""
+"Envia cada document del contracte (contracte, acords independents, addendes)"
+" a signar en línia amb sign_oca; factura només quan els documents necessaris"
+" estan signats"
 
 #. module: contract_sign_oca
 #: model_terms:ir.ui.view,arch_db:contract_sign_oca.contract_document_form_view
@@ -369,7 +366,11 @@ msgid ""
 " signed (e.g. the contract, the non-disclosure agreement and the data "
 "processing agreement; not the addenda). Any document may be sent for "
 "signature anyway."
-msgstr "El contracte no es factura fins que els documents fets amb aquesta plantilla estan signats (p. ex. el contracte, l'acord de confidencialitat i l'encàrrec del tractament; no les addendes). Qualsevol document es pot enviar a signar igualment."
+msgstr ""
+"El contracte no es factura fins que els documents fets amb aquesta plantilla"
+" estan signats (p. ex. el contracte, l'acord de confidencialitat i "
+"l'encàrrec del tractament; no les addendes). Qualsevol document es pot "
+"enviar a signar igualment."
 
 #. module: contract_sign_oca
 #: model:ir.model.fields,help:contract_sign_oca.field_contract_document__sign_required
@@ -381,7 +382,9 @@ msgstr "El contracte no es factura fins que aquest document està signat."
 msgid ""
 "The documents not signed nor sent yet will be generated, frozen and sent for"
 " signature. Continue?"
-msgstr "Els documents encara no signats ni enviats es generaran, es congelaran i s'enviaran a signar. Vols continuar?"
+msgstr ""
+"Els documents encara no signats ni enviats es generaran, es congelaran i "
+"s'enviaran a signar. Vols continuar?"
 
 #. module: contract_sign_oca
 #. odoo-python
@@ -399,9 +402,60 @@ msgstr "Es cancel·larà la petició de signatura pendent. Voleu continuar?"
 msgid ""
 "This contract will not be invoiced until the documents required\n"
 "                    to invoice are signed."
-msgstr "Aquest contracte no es facturarà fins que els documents necessaris per facturar estiguin signats."
+msgstr ""
+"Aquest contracte no es facturarà fins que els documents necessaris per "
+"facturar estiguin signats."
 
 #. module: contract_sign_oca
 #: model_terms:ir.ui.view,arch_db:contract_sign_oca.contract_document_template_form_view
 msgid "Width"
 msgstr "Amplada"
+
+#. module: contract_sign_oca
+#: model_terms:ir.ui.view,arch_db:contract_sign_oca.portal_contract_page_sign
+msgid "<i class=\"oi me-1\" data-icon=\"check\"/>Signed"
+msgstr "<i class=\"oi me-1\" data-icon=\"check\"/>Signat"
+
+#. module: contract_sign_oca
+#: model_terms:ir.ui.view,arch_db:contract_sign_oca.portal_contract_page_sign
+msgid "<i class=\"oi me-1\" data-icon=\"download\"/>Download"
+msgstr "<i class=\"oi me-1\" data-icon=\"download\"/>Descarrega"
+
+#. module: contract_sign_oca
+#: model_terms:ir.ui.view,arch_db:contract_sign_oca.portal_contract_page_sign
+msgid "<i class=\"oi me-1\" data-icon=\"edit\"/>Sign"
+msgstr "<i class=\"oi me-1\" data-icon=\"edit\"/>Signa"
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,help:contract_sign_oca.field_contract_document__signed_outside_on
+msgid "Date of the signature outside Odoo."
+msgstr "Data de la signatura fora d'Odoo."
+
+#. module: contract_sign_oca
+#. odoo-python
+#: code:addons/contract_sign_oca/models/contract_document.py:0
+msgid ""
+"Document %(name)s is an uploaded file: it cannot be sent for signature. If "
+"it is already signed, mark it as signed outside Odoo."
+msgstr ""
+"El document %(name)s és un fitxer pujat: no es pot enviar a signar. Si ja "
+"està signat, marqueu-lo com a signat fora d'Odoo."
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,field_description:contract_sign_oca.field_contract_document__signed_outside_on
+msgid "Signature date"
+msgstr "Data de signatura"
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,field_description:contract_sign_oca.field_contract_document__signed_outside
+msgid "Signed outside Odoo"
+msgstr "Signat fora d'Odoo"
+
+#. module: contract_sign_oca
+#: model:ir.model.fields,help:contract_sign_oca.field_contract_document__signed_outside
+msgid ""
+"Uploaded document already signed by all the parties (e.g. on paper): it "
+"counts as signed."
+msgstr ""
+"Document pujat ja signat per totes les parts (p. ex. en paper): compta com a"
+" signat."

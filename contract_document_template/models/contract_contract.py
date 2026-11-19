@@ -70,7 +70,9 @@ class ContractContract(models.Model):
                     for template in missing.sorted(lambda t: (t.sequence, t.id))
                 ]
             )
-            contract.document_ids.filtered(lambda d: d.state == "draft").action_generate()
+            contract.document_ids.filtered(
+                lambda d: d.state == "draft" and d.source == "template"
+            ).action_generate()
         return True
 
     def action_view_documents(self):
@@ -85,3 +87,20 @@ class ContractContract(models.Model):
             "default_company_id": self.company_id.id,
         }
         return action
+
+    def action_upload_document(self):
+        """New uploaded document (e.g. a contract signed on paper, a receipt)."""
+        self.ensure_one()
+        return {
+            "type": "ir.actions.act_window",
+            "name": self.env._("Upload a document"),
+            "res_model": "contract.document",
+            "view_mode": "form",
+            "target": "new",
+            "context": {
+                "default_contract_id": self.id,
+                "default_partner_id": self.partner_id.id,
+                "default_company_id": self.company_id.id,
+                "default_source": "upload",
+            },
+        }
