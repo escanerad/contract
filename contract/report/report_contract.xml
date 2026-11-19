@@ -106,7 +106,7 @@
                                             <td colspan="99">
                                                 <strong class="mr16">Subtotal</strong>
                                                 <span
-                                                    t-esc="current_subtotal"
+                                                    t-out="current_subtotal"
                                                     t-options='{"widget": "monetary", "display_currency": o.currency_id}'
                                                 />
                                             </td>
@@ -161,7 +161,7 @@
                                 </td>
                                 <td class="text-end">
                                     <span
-                                        t-esc="total"
+                                        t-out="total"
                                         t-options='{"widget": "monetary", "display_currency": o.currency_id}'
                                     />
                                 </td>
